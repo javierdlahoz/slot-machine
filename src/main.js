@@ -2,7 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 
 Vue.config.productionTip = false;
-Vue.config.slotTheme = 'default';
+
+window.slotConfig = {
+  theme: 'default'
+};
+
+Vue.component('slot-wrapper', require('./components/Wrapper').default);
+Vue.component('slot-reel', require('./components/Reel').default);
+Vue.component('slot-symbol', require('./components/Symbol').default);
 
 new Vue({
   render: h => h(App),
