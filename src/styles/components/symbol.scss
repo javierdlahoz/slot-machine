@@ -1,13 +1,11 @@
-@import "../variables";
-
 .slot__symbol-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  height: $slot-height;
+  height: 160px;
 
   img {
-    height: calc(#{$slot-height} - 20px);
+    height: 140px;
   }
 }

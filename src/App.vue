@@ -4,7 +4,7 @@
         </slot-wrapper>
     </div>
 </template>
-<style scoped lang="scss">
+<style scoped>
     @import "styles/app.scss";
 </style>
 <script>

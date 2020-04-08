@@ -10,6 +10,8 @@
     </div>
 </template>
 <script>
+    import axios from 'axios';
+
     const next =
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -38,10 +40,12 @@
         methods: {
             start() {
                 if (this.opts) return;
+                this.retrieveData();
 
                 this.opts = this.reels.map((data, i) => {
                     const slot = this.$refs.reels[i];
                     const choice = Math.floor(Math.random() * data.items.length);
+                    console.log(choice);
 
                     const opts = {
                         el: slot.querySelector(".slot__wrap"),
@@ -56,6 +60,12 @@
                 });
 
                 next(this.animate);
+            },
+            retrieveData() {
+                axios.get(this.endpoint)
+                    .then(({data}) => {
+                        console.log(data);
+                    })
             },
             animate(timestamp) {
                 if (this.startedAt == null) {
@@ -118,6 +128,9 @@
                     reels.push({items: this.getShuffledSymbols()});
                 }
                 return reels;
+            },
+            endpoint() {
+                return 'https://casino.nomadnt.com/game/1/spin?api_token=uhg8usBbZ6r0v9Yu0pW59lz3DRTP0jxr1XK9COrFdCE9SqGfBXu4x0P8vduuWN4x6Gf1bY1H6aSugRGj';
             }
         }
     }

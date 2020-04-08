@@ -5,7 +5,7 @@
         </div>
     </div>
 </template>
-<style scoped lang="scss">
+<style scoped>
     @import "../styles/components/symbol.scss";
 </style>
 <script>
