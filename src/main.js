@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
+// import router from './router'
+import Wrapper from './components/Wrapper';
+import Reel from './components/Reel';
+import Symbol from "./components/Symbol";
 
 Vue.config.productionTip = false;
 
@@ -7,10 +11,12 @@ window.slotConfig = {
   theme: 'default'
 };
 
-Vue.component('slot-wrapper', require('./components/Wrapper').default);
-Vue.component('slot-reel', require('./components/Reel').default);
-Vue.component('slot-symbol', require('./components/Symbol').default);
+Vue.component('slot-wrapper', Wrapper);
+Vue.component('slot-reel', Reel);
+Vue.component('slot-symbol', Symbol);
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app');
+  el: '#app',
+  components: { App },
+  template: '<App/>'
+})

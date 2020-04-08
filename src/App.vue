@@ -9,6 +9,7 @@
 </style>
 <script>
     export default {
+        name: 'App'
         // TODO: if needed add logic here
     };
 </script>
