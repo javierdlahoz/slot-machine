@@ -48,7 +48,7 @@
                 let reels = [];
                 // eslint-disable-next-line for-direction
                 for (let i = 0; i < this.reelAmount; i++) {
-                    reels.push({items: this.getShuffledSymbols()});
+                    reels.push({items: [...Array(this.symbolsAmount).keys()]});
                 }
                 return reels;
             },
@@ -119,10 +119,12 @@
                 this.opts = this.reels.map((data, i) => {
                     const slot = this.$refs.reels[i];
                     const choice = this.choices[i];
+                    console.log(choice);
 
                     const opts = {
                         el: slot.querySelector(".slot__wrap"),
                         finalPos: choice * 180,
+                        choice: choice,
                         startOffset: 2000 + Math.random() * 500 + i * 500,
                         height: data.items.length * 180,
                         duration: 3000 + i * 700, // milliseconds
