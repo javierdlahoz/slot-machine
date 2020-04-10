@@ -1,30 +1,3 @@
-.slot {
-  float: left;
-  margin: 0.4em;
-}
-
-.slot__window {
-  background-color: #444;
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-}
-
-.slot__wrap {
-}
-
-.slot__item {
-  margin-top: 20px;
-  height: 160px;
-  width: 180px;
-  padding: 0 10px;
-
-  text-align: center;
-  background-color: #ccc;
-  color: black;
-
-  line-height: 160px;
-}
-
-.slot__item--copy {
-}
+@import "variables";
+@import "components/symbol";
+@import "components/wrapper";

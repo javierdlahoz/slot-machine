@@ -1,12 +1,14 @@
 <template>
-    <div>
-        <div class="slot-machine">
-            <div ref="reels" v-for="(reel, index) in reels" v-bind:key="index">
-                <slot-reel :reel="reel">
-                </slot-reel>
+    <div class="container">
+        <div class="row mt-4 mb-4">
+            <div class="reel-container col-md-4" ref="reels" v-for="(reel, index) in reels" v-bind:key="index">
+                <slot-reel :reel="reel"></slot-reel>
             </div>
         </div>
-        <button @click="start" style="display: block">start</button>
+        <div class="row">
+            <div class="mb-2 flex flex-grow-1 text-center" v-if="choices.length > 0">{{ choices }}</div>
+            <button class="btn btn-primary btn-block" @click="retrieveData">start</button>
+        </div>
     </div>
 </template>
 <script>
@@ -34,39 +36,27 @@
         data() {
             return {
                 opts: null,
-                startedAt: null
+                startedAt: null,
+                choices: []
             };
         },
+        computed: {
+            endpoint() {
+                return 'https://casino.nomadnt.com/game/1/spin?api_token=uhg8usBbZ6r0v9Yu0pW59lz3DRTP0jxr1XK9COrFdCE9SqGfBXu4x0P8vduuWN4x6Gf1bY1H6aSugRGj';
+            },
+            reels() {
+                let reels = [];
+                // eslint-disable-next-line for-direction
+                for (let i = 0; i < this.reelAmount; i++) {
+                    reels.push({items: this.getShuffledSymbols()});
+                }
+                return reels;
+            },
+            symbols() {
+                return Array.from(Array(this.symbolsAmount).keys());
+            }
+        },
         methods: {
-            start() {
-                if (this.opts) return;
-                this.retrieveData();
-
-                this.opts = this.reels.map((data, i) => {
-                    const slot = this.$refs.reels[i];
-                    const choice = Math.floor(Math.random() * data.items.length);
-                    console.log(choice);
-
-                    const opts = {
-                        el: slot.querySelector(".slot__wrap"),
-                        finalPos: choice * 180,
-                        startOffset: 2000 + Math.random() * 500 + i * 500,
-                        height: data.items.length * 180,
-                        duration: 3000 + i * 700, // milliseconds
-                        isFinished: false
-                    };
-
-                    return opts;
-                });
-
-                next(this.animate);
-            },
-            retrieveData() {
-                axios.get(this.endpoint)
-                    .then(({data}) => {
-                        console.log(data);
-                    })
-            },
             animate(timestamp) {
                 if (this.startedAt == null) {
                     this.startedAt = timestamp;
@@ -115,22 +105,34 @@
                 }
 
                 return array;
-            }
-        },
-        computed: {
-            symbols() {
-                return Array.from(Array(this.symbolsAmount).keys());
             },
-            reels() {
-                let reels = [];
-                // eslint-disable-next-line for-direction
-                for (let i = 0; i < this.reelAmount; i++) {
-                    reels.push({items: this.getShuffledSymbols()});
-                }
-                return reels;
+            retrieveData() {
+                axios.get(this.endpoint)
+                    .then(({data}) => {
+                        this.choices = data.outcome;
+                        this.spin();
+                    })
             },
-            endpoint() {
-                return 'https://casino.nomadnt.com/game/1/spin?api_token=uhg8usBbZ6r0v9Yu0pW59lz3DRTP0jxr1XK9COrFdCE9SqGfBXu4x0P8vduuWN4x6Gf1bY1H6aSugRGj';
+            spin() {
+                if (this.opts) return;
+
+                this.opts = this.reels.map((data, i) => {
+                    const slot = this.$refs.reels[i];
+                    const choice = this.choices[i];
+
+                    const opts = {
+                        el: slot.querySelector(".slot__wrap"),
+                        finalPos: choice * 180,
+                        startOffset: 2000 + Math.random() * 500 + i * 500,
+                        height: data.items.length * 180,
+                        duration: 3000 + i * 700, // milliseconds
+                        isFinished: false
+                    };
+
+                    return opts;
+                });
+
+                next(this.animate);
             }
         }
     }

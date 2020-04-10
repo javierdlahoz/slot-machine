@@ -1,0 +1,37 @@
+@import "../variables";
+
+.slot {
+  width: 100%;
+  float: left;
+}
+
+.reel-container {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.slot__window {
+  background-color: $light-grey;
+  width: 100%;
+  max-height: 200px;
+  min-height: 120px;
+  overflow: hidden;
+}
+
+.slot__wrap {
+}
+
+.slot__item {
+  margin-top: 20px;
+  height: 100%;
+  width: 100%;
+
+  text-align: center;
+  background-color: $white;
+  color: black;
+
+  line-height: $slot-height;
+}
+
+.slot__item--copy {
+}

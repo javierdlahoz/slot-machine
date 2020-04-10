@@ -1,11 +1,19 @@
+@import "../variables";
+
 .slot__symbol-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  height: 160px;
+  height: $slot-height;
+  background-repeat: no-repeat;
+  background-position: center;
 
   img {
-    height: 140px;
+    height: calc(#{$slot-height} - 20px);
+  }
+
+  .symbol__helper {
+
   }
 }

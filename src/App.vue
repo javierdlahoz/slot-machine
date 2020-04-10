@@ -4,8 +4,8 @@
         </slot-wrapper>
     </div>
 </template>
-<style scoped>
-    @import "styles/app.scss";
+<style lang="scss">
+    @import "styles/app";
 </style>
 <script>
     export default {

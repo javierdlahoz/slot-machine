@@ -1,13 +1,10 @@
 <template>
     <div>
-        <div class="slot__symbol-wrapper">
-            <img v-bind:src="imageSrc" />
+        <div class="slot__symbol-wrapper position-relative"
+             v-bind:style="{'background-image': 'url(' + imageSrc + ')'}">
         </div>
     </div>
 </template>
-<style scoped>
-    @import "../styles/components/symbol.scss";
-</style>
 <script>
     export default {
         props: {
