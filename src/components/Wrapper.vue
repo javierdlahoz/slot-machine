@@ -1,18 +1,16 @@
 <template>
-    <div class="container">
+    <div class="container wrapper">
         <div class="row mt-4 mb-4">
-            <div class="reel-container col-md-4" ref="reels" v-for="(reel, index) in reels" v-bind:key="index">
-                <slot-reel :reel="reel"></slot-reel>
+            <div class="reel-container col-4" ref="reels" v-for="(reel, index) in reels" v-bind:key="index">
+                <slot-reel :reel="reel" :is-winner="hasWinnerSymbol(index)"></slot-reel>
             </div>
         </div>
-        <div class="row">
-            <div class="mb-2 flex flex-grow-1 text-center" v-if="choices.length > 0">{{ choices }}</div>
-            <button class="btn btn-primary btn-block" @click="retrieveData">start</button>
-        </div>
+        <slot-control-panel @triggered="retrieveData" :response="response"></slot-control-panel>
     </div>
 </template>
 <script>
     import axios from 'axios';
+    import EventBus from "../EventBus";
 
     const next =
         window.requestAnimationFrame ||
@@ -37,7 +35,10 @@
             return {
                 opts: null,
                 startedAt: null,
-                choices: []
+                loading: false,
+                choices: [],
+                response: {},
+                payline: []
             };
         },
         computed: {
@@ -70,7 +71,7 @@
                     }
 
                     const timeRemaining = Math.max(opt.duration - timeDiff, 0);
-                    const power = 3;
+                    const power = this.reelAmount;
                     const offset =
                         (Math.pow(timeRemaining, power) / Math.pow(opt.duration, power)) *
                         opt.startOffset;
@@ -88,6 +89,7 @@
                 if (this.opts.every(o => o.isFinished)) {
                     this.opts = null;
                     this.startedAt = null;
+                    setTimeout(() => EventBus.$emit('spinning', false), 200);
                 } else {
                     next(this.animate);
                 }
@@ -106,10 +108,16 @@
 
                 return array;
             },
+            hasWinnerSymbol(index) {
+                return !!(this.payline[index] && this.payline[index] === 1);
+            },
             retrieveData() {
+                EventBus.$emit('spinning', true);
                 axios.get(this.endpoint)
                     .then(({data}) => {
+                        this.response = data;
                         this.choices = data.outcome;
+                        this.payline = data.payline ? data.payline : [];
                         this.spin();
                     })
             },
@@ -119,7 +127,6 @@
                 this.opts = this.reels.map((data, i) => {
                     const slot = this.$refs.reels[i];
                     const choice = this.choices[i];
-                    console.log(choice);
 
                     const opts = {
                         el: slot.querySelector(".slot__wrap"),
