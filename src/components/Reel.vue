@@ -5,9 +5,9 @@
                 <div class="slot__item" v-for="opt in reel.items" v-bind:key="opt">
                     <slot-symbol :symbol="opt" :is-winner="isWinner"></slot-symbol>
                 </div>
-<!--                <div class="slot__item slot__item&#45;&#45;copy">-->
-<!--                    <slot-symbol :symbol="reel.items[0]"></slot-symbol>-->
-<!--                </div>-->
+                <div class="slot__item slot__item--copy">
+                    <slot-symbol :symbol="reel.items[0]"></slot-symbol>
+                </div>
             </div>
         </div>
     </div>
