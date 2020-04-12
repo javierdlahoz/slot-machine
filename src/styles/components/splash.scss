@@ -1,0 +1,26 @@
+@import "../variables";
+
+$logo-width: 200px;
+
+.splash-screen {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: $black;
+  flex-grow: 1;
+  z-index: 9999;
+
+  .progress {
+    height: 20px;
+    width: $logo-width;
+  }
+
+  img {
+    height: auto;
+    width: $logo-width;
+  }
+}
