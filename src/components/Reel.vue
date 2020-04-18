@@ -5,20 +5,34 @@
                 <div class="slot__item" v-for="opt in reel.items" v-bind:key="opt">
                     <slot-symbol :symbol="opt" :is-winner="isWinner"></slot-symbol>
                 </div>
-                <div class="slot__item slot__item--copy">
-                    <slot-symbol :symbol="reel.items[0]"></slot-symbol>
+                <div class="slot__offset">
+                    <div class="slot__item slot__item--copy">
+                        <slot-symbol :symbol="reel.items[0]"></slot-symbol>
+                    </div>
+                    <div class="slot__item slot__item--copy">
+                        <slot-symbol :symbol="reel.items[1]"></slot-symbol>
+                    </div>
+                    <div class="slot__item slot__item--copy">
+                        <slot-symbol :symbol="reel.items[2]"></slot-symbol>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import config from "../services/config";
     export default {
         props: {
             reel: Object,
             isWinner: {
                 type: Boolean,
                 default: false
+            }
+        },
+        data() {
+            return {
+                rows: config.rows
             }
         }
     }

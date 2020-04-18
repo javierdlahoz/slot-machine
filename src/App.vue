@@ -1,19 +1,22 @@
 <template>
     <div>
         <splash-screen v-if="loading" :loading-percentage="loadingPercentage"></splash-screen>
-        <slot-wrapper :reel-amount="3" :rows="1"></slot-wrapper>
+        <slot-wrapper :reel-amount="reelsAmount" :rows="rows"></slot-wrapper>
     </div>
 </template>
 <style lang="scss">
     @import "styles/app";
 </style>
 <script>
+    import config from "./services/config";
+
     export default {
-        // TODO: if needed add logic here
         data() {
             return {
                 loading: true,
-                loadingPercentage: 0
+                loadingPercentage: 0,
+                reelsAmount: config.reels,
+                rows: config.rows
             }
         },
         created() {
@@ -30,7 +33,7 @@
                     this.loadingPercentage += 5;
                     this.preload();
                 },
-                    100
+                    50
                 );
             }
         }

@@ -1,6 +1,6 @@
 <template>
-    <div class="container wrapper">
-        <div class="row mt-4 mb-4">
+    <div class="container board">
+        <div class="row mt-4 mb-4 board-container">
             <div class="reel-container col-4" ref="reels" v-for="(reel, index) in reels" v-bind:key="index">
                 <slot-reel :reel="reel" :is-winner="hasWinnerSymbol(index)"></slot-reel>
             </div>
@@ -10,7 +10,8 @@
 </template>
 <script>
     import axios from 'axios';
-    import EventBus from "../EventBus";
+    import EventBus from "../services/EventBus";
+    import config from "../services/config";
 
     const next =
         window.requestAnimationFrame ||
@@ -28,11 +29,13 @@
             rows: Number,
             symbolsAmount: {
                 type: Number,
-                default: 25
+                default: config.symbols
             }
         },
         data() {
             return {
+                animationDuration: 3000,
+                symbolHeight: 180,
                 opts: null,
                 startedAt: null,
                 loading: false,
@@ -52,9 +55,6 @@
                     reels.push({items: [...Array(this.symbolsAmount).keys()]});
                 }
                 return reels;
-            },
-            symbols() {
-                return Array.from(Array(this.symbolsAmount).keys());
             }
         },
         methods: {
@@ -94,20 +94,6 @@
                     next(this.animate);
                 }
             },
-            getShuffledSymbols() {
-                let array = JSON.parse(JSON.stringify(this.symbols));
-                let counter = this.symbols.length;
-
-                while (counter > 0) {
-                    let index = Math.floor(Math.random() * counter);
-                    counter--;
-                    let temp = array[counter];
-                    array[counter] = array[index];
-                    array[index] = temp;
-                }
-
-                return array;
-            },
             hasWinnerSymbol(index) {
                 return !!(this.payline[index] && this.payline[index] === 1);
             },
@@ -130,11 +116,11 @@
 
                     const opts = {
                         el: slot.querySelector(".slot__wrap"),
-                        finalPos: choice * 180,
+                        finalPos: choice * this.symbolHeight,
                         choice: choice,
-                        startOffset: 2000 + Math.random() * 500 + i * 500,
-                        height: data.items.length * 180,
-                        duration: 3000 + i * 700, // milliseconds
+                        startOffset: config.animationSpeed + Math.random() * 500 + i * 500,
+                        height: data.items.length * this.symbolHeight,
+                        duration: this.animationDuration + i * config.stopDelay, // milliseconds
                         isFinished: false
                     };
 

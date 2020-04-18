@@ -3,3 +3,7 @@ $white: #FFFFFF;
 $black: #000000;
 $yellow: #ffff00;
 $light-grey: #d7d7d7;
+
+// BOARD
+$max-board-width: 720px;
+$max-board-height: (($slot-height + 20px) * 3);
