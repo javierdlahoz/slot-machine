@@ -6,7 +6,15 @@
                     Payline Log: {{ response.payline }}
                 </div>
             </div>
-            <button v-bind:disabled="spinning" class="btn btn-primary btn-block" @click="trigger">Spin</button>
+        </div>
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-4 text-right">
+            <button v-bind:disabled="spinning" class="btn btn-block btn-primary px-4" @click="trigger">
+                <font-awesome-icon icon="spinner" v-if="spinning" spin class="mx-2"></font-awesome-icon>
+                <span v-else>Spin</span>
+            </button>
         </div>
     </div>
 </template>
