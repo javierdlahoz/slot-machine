@@ -7,13 +7,13 @@
                 </div>
                 <div class="slot__offset">
                     <div class="slot__item slot__item--copy">
-                        <slot-symbol :symbol="reel.items[0]"></slot-symbol>
+                        <slot-symbol :symbol="reel.items[0]" :is-winner="isWinner"></slot-symbol>
                     </div>
                     <div class="slot__item slot__item--copy">
-                        <slot-symbol :symbol="reel.items[1]"></slot-symbol>
+                        <slot-symbol :symbol="reel.items[1]" :is-winner="isWinner"></slot-symbol>
                     </div>
                     <div class="slot__item slot__item--copy">
-                        <slot-symbol :symbol="reel.items[2]"></slot-symbol>
+                        <slot-symbol :symbol="reel.items[2]" :is-winner="isWinner"></slot-symbol>
                     </div>
                 </div>
             </div>
