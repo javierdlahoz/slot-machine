@@ -37,7 +37,7 @@
         },
         methods: {
             hasWinnerSymbol(index) {
-                return !!(this.payline[index] && this.payline[index] === 1);
+                return !isNaN(this.payline[index]);
             },
             spin() {
                 this.retrieveData(() => {
