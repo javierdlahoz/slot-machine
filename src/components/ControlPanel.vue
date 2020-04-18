@@ -7,11 +7,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
 
         </div>
-        <div class="col-md-6 text-right">
-            <button v-bind:disabled="spinning" class="btn btn-primary px-4" @click="trigger">
+        <div class="col-md-4 text-right">
+            <button v-bind:disabled="spinning" class="btn btn-block btn-primary px-4" @click="trigger">
                 <font-awesome-icon icon="spinner" v-if="spinning" spin class="mx-2"></font-awesome-icon>
                 <span v-else>Spin</span>
             </button>
