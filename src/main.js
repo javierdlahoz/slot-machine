@@ -13,7 +13,7 @@ window.slotConfig = {
 };
 
 Vue.component('slot-control-panel',  require('./components/ControlPanel').default);
-Vue.component('slot-wrapper', require('./components/Wrapper').default);
+Vue.component('slot-wrapper', require('./components/Board').default);
 Vue.component('slot-reel', require('./components/Reel').default);
 Vue.component('slot-symbol', require('./components/Symbol').default);
 Vue.component('splash-screen', require('./components/SplashScreen').default);

@@ -3,13 +3,13 @@
         <div class="slot__symbol-wrapper position-relative"
              v-bind:style="{'background-image': 'url(' + imageSrc + ')'}">
             <div class="slot__symbol-winner" v-if="isWinner && !spinning">
-                <font-awesome-icon icon="star" />
+                <font-awesome-icon icon="star" spin />
             </div>
         </div>
     </div>
 </template>
 <script>
-    import EventBus from "../EventBus";
+    import EventBus from "../services/EventBus";
     export default {
         props: {
             symbol: Number,

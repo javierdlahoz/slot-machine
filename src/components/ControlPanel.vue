@@ -1,14 +1,17 @@
 <template>
     <div class="row">
-        <div v-if="response && response.outcome">
-            <div class="mb-2 flex flex-grow-1 text-center" v-if="response.outcome.length > 0">{{ response.outcome }}</div>
-            <div class="mb-2 flex flex-grow-1 text-center" v-if="response.payline.length > 0">{{ response.payline }}</div>
+        <div class="col-md-12">
+            <div v-if="response && response.outcome">
+                <div class="mb-2 flex flex-grow-1 text-center" v-if="response.payline.length > 0">
+                    Payline Log: {{ response.payline }}
+                </div>
+            </div>
+            <button v-bind:disabled="spinning" class="btn btn-primary btn-block" @click="trigger">Spin</button>
         </div>
-        <button v-bind:disabled="spinning" class="btn btn-primary btn-block" @click="trigger">Spin</button>
     </div>
 </template>
 <script>
-    import EventBus from "../EventBus";
+    import EventBus from "../services/EventBus";
     export default {
         props: {
             response: Object
