@@ -7,6 +7,7 @@ import App from './App.vue'
 import store from './store'
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-default.css';
+import router from './router'
 
 Vue.config.productionTip = false;
 
@@ -16,7 +17,7 @@ window.slotConfig = {
 
 Vue.use(VueToast);
 
-Vue.component('slot-control-panel',  require('./components/ControlPanel').default);
+Vue.component('slot-control-panel', require('./components/ControlPanel').default);
 Vue.component('slot-wrapper', require('./components/Board').default);
 Vue.component('slot-reel', require('./components/Reel').default);
 Vue.component('slot-symbol', require('./components/Symbol').default);
@@ -24,5 +25,6 @@ Vue.component('splash-screen', require('./components/SplashScreen').default);
 
 new Vue({
   store,
+  router,
   render: h => h(App)
 }).$mount('#app');
