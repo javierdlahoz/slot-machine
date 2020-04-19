@@ -2,21 +2,21 @@
   <div>
     <div class="slot__symbol-wrapper position-relative"
          v-bind:style="{'background-image': 'url(' + imageSrc + ')'}">
-      <div class="slot__symbol-winner" v-if="isWinner && !spinning">
-        <font-awesome-icon icon="star" spin/>
-      </div>
+      <template v-if="(winnerSymbol || winnerSymbol === 0) && !spinning">
+        <component :is="winnerComponent"></component>
+      </template>
     </div>
   </div>
 </template>
 <script>
-  import EventBus from "../services/EventBus";
+  import EventBus from "../../services/EventBus";
 
   export default {
     props: {
       symbol: Number,
-      isWinner: {
-        type: Boolean,
-        default: false
+      winnerSymbol: {
+        type: Number,
+        default: null
       }
     },
     data() {
@@ -31,7 +31,10 @@
     },
     computed: {
       imageSrc() {
-        return require(`../assets/themes/${window.slotConfig.theme}/symbols/${this.symbol}.png`);
+        return require(`../../assets/themes/${window.slotConfig.theme}/symbols/${this.symbol}.png`);
+      },
+      winnerComponent() {
+        return `winner-${this.winnerSymbol}`;
       }
     }
   }
