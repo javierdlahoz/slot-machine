@@ -1,14 +1,22 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <div v-if="response && response.outcome">
-        <div class="mb-2 flex flex-grow-1 text-center" v-if="response.payline.length > 0">
-          Payline Log: {{ response.payline }}
+      <div v-if="meta && meta.outcome">
+        <div class="mb-2 flex flex-grow-1 text-center" v-if="meta.payline.length > 0">
+          Payline Log: {{ meta.payline }}
         </div>
       </div>
     </div>
     <div class="col-md-8">
-
+      <h5 v-if="meta && meta.balance">
+        Balance: {{ meta.balance | currency }}
+      </h5>
+      <h5 v-if="meta && meta.bet">
+        Bet: {{ meta.bet | currency }}
+      </h5>
+      <h5 v-if="meta && meta.win">
+        Win: {{ meta.win | currency }}
+      </h5>
     </div>
     <div class="col-md-4 text-right">
       <button v-bind:disabled="spinning" class="btn btn-block btn-primary px-4" @click="trigger">
@@ -38,6 +46,11 @@
     methods: {
       trigger() {
         this.$emit('triggered');
+      }
+    },
+    computed: {
+      meta() {
+        return this.response.data;
       }
     }
   }
