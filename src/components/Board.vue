@@ -1,7 +1,7 @@
 <template>
   <div class="container board">
-    <div class="row mt-4 mb-4 board-container">
-      <div class="reel-container col-4" ref="reels" v-for="(reel, index) in reels" v-bind:key="index">
+    <div class="row mt-4 mb-4 board-container" v-bind:class="slotStyle">
+      <div class="reel-container col-4" v-bind:class="slotStyle" ref="reels" v-for="(reel, index) in reels" v-bind:key="index">
         <slot-reel :reel="reel" :winner-symbol="winnerSymbol(index)"></slot-reel>
       </div>
     </div>
@@ -12,9 +12,10 @@
   import config from "../services/config";
   import BackendServices from "../mixins/BackendMixin";
   import AnimationMixin from "../mixins/AnimationMixin";
+  import StyleMixin from "../mixins/StyleMixin";
 
   export default {
-    mixins: [BackendServices, AnimationMixin],
+    mixins: [BackendServices, AnimationMixin, StyleMixin],
     props: {
       reelAmount: Number,
       rows: Number,

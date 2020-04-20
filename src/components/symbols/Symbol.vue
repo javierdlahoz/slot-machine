@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="slot__symbol-wrapper position-relative"
-         v-bind:style="{'background-image': 'url(' + imageSrc + ')'}">
+          v-bind:class="slotStyle"
+          v-bind:style="{'background-image': 'url(' + imageSrc + ')'}">
       <template v-if="(winnerSymbol || winnerSymbol === 0) && !spinning">
         <component :is="winnerComponent"></component>
       </template>
@@ -10,8 +11,10 @@
 </template>
 <script>
   import EventBus from "../../services/EventBus";
+  import StyleMixin from "../../mixins/StyleMixin";
 
   export default {
+    mixins: [StyleMixin],
     props: {
       symbol: Number,
       winnerSymbol: {
