@@ -14,13 +14,14 @@
       };
     },
     methods: {
-      retrieveData(callback, error) {
+      retrieveData(params, callback, error) {
         EventBus.$emit('spinning', true);
-        axios.get(this.endpoint, this.config)
+        axios.get(this.endpoint, this.config(params))
           .then(({data}) => {
             this.response = data;
             this.choices = data.data.payload.outcome;
             this.payline = data.data.payload.payline ? data.data.payload.payline : [];
+            this.$store.dispatch('setBetResponse', data.data);
             callback(data);
           })
           .catch((data) => {
@@ -28,7 +29,13 @@
             Vue.$toast.error('Something went wrong');
             error(data);
           });
-      }
+      },
+      config(params = {}) {
+        return {
+          params: Object.assign(params, this.params),
+          headers: this.headers
+        };
+      },
     },
     computed: {
       endpoint() {
@@ -42,12 +49,6 @@
             'Authorization': `Bearer ${bearerToken}`
           }
           : {};
-      },
-      config() {
-        return {
-          params: this.params,
-          headers: this.headers
-        };
       },
       params() {
         return {};
