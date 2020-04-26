@@ -5,15 +5,32 @@
   justify-content: center;
   align-items: center;
   align-content: center;
-  height: $slot-height;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 
-  img {
-    height: calc(#{$slot-height} - 20px);
+  &.slot-3 {
+    height: $slot-height-3;
+
+    @media (max-width: $breakpoint-xs) {
+      height: $slot-m-height-3;
+    }
   }
 
-  .symbol__helper {
+  &.slot-4 {
+    height: $slot-height-4;
+
+    @media (max-width: $breakpoint-xs) {
+      height: $slot-m-height-4;
+    }
+  }
+
+  &.slot-5 {
+    height: $slot-height-5;
+
+    @media (max-width: $breakpoint-xs) {
+      height: $slot-m-height-5;
+    }
   }
 
   .slot__symbol-winner {

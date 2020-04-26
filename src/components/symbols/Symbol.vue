@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="slot__symbol-wrapper position-relative"
-         v-bind:style="{'background-image': 'url(' + imageSrc + ')'}">
+          v-bind:class="slotStyle"
+          v-bind:style="{'background-image': 'url(' + imageSrc + ')'}">
       <template v-if="(winnerSymbol || winnerSymbol === 0) && !spinning">
         <component :is="winnerComponent"></component>
       </template>
@@ -10,14 +11,14 @@
 </template>
 <script>
   import EventBus from "../../services/EventBus";
+  import StyleMixin from "../../mixins/StyleMixin";
 
   export default {
+    mixins: [StyleMixin],
     props: {
       symbol: Number,
-      winnerSymbol: {
-        type: Number,
-        default: null
-      }
+      reelIndex: Number,
+      symbolIndex: Number
     },
     data() {
       return {
@@ -27,13 +28,25 @@
     created() {
       EventBus.$on('spinning', (spinning) => {
         this.spinning = spinning;
-      })
+      });
     },
     computed: {
       imageSrc() {
         return require(`../../assets/themes/${window.slotConfig.theme}/symbols/${this.symbol}.png`);
       },
-      winnerComponent() {
+      winnerSymbol() {
+        try {
+          const payline = this.$store.getters.betResponse.payload.payline;
+          if (payline && payline.length > 0) {
+            return payline[this.reelIndex];
+          }
+        } catch {
+          return null;
+        }
+        
+        return null;
+      },
+      winnerComponent() {     
         return `winner-${this.winnerSymbol}`;
       }
     }

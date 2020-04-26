@@ -1,0 +1,49 @@
+<script>
+  import config from '../services/config';
+
+  export default {
+    data() {
+      return {
+        windowWidth: window.innerWidth,
+        symbolDic: {
+          'lg-3': 140,
+          'md-3': 140,
+          'sm-3': 140,
+          'xs-3': 140,
+          'lg-4': 140,
+          'md-4': 140,
+          'sm-4': 140,
+          'xs-4': 140,
+          'lg-5': 140,
+          'md-5': 140,
+          'sm-5': 140,
+          'xs-5': 140,
+        }
+      }
+    },
+    mounted() {
+      window.addEventListener('resize', () => {
+        this.windowWidth = window.innerWidth;
+      })
+    },
+    computed: {
+      slotStyle() {
+        return `slot-${config.reels}`;
+      },
+      symbolHeight() {
+        return this.symbolDic[`${this.breakpoint}-${config.reels}`];
+      },
+      breakpoint() {
+        if (this.windowWidth > 1200) {
+          return 'lg';
+        } else if (this.windowWidth > 992) {
+          return 'md';
+        } else if (this.windowWidth > 768) {
+          return 'sm';
+        } else {
+          return 'xs';
+        }
+      }
+    }
+  }
+</script>

@@ -7,7 +7,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 d-flex flex-column justify-content-center">
       <h5 v-if="meta && meta.balance">
         Balance: {{ meta.balance | currency }}
       </h5>
@@ -19,6 +19,13 @@
       </h5>
     </div>
     <div class="col-md-4 text-right">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Bet: €</span>
+        </div>
+        <input type="number" min="0.50" step="0.50" class="form-control" v-model="bet">
+      </div>
+      
       <button v-bind:disabled="spinning" class="btn btn-block btn-primary px-4" @click="trigger">
         <font-awesome-icon icon="spinner" v-if="spinning" spin class="mx-2"></font-awesome-icon>
         <span v-else>Spin</span>
@@ -30,12 +37,10 @@
   import EventBus from "../services/EventBus";
 
   export default {
-    props: {
-      response: Object
-    },
     data() {
       return {
-        spinning: false
+        spinning: false,
+        bet: 0.50
       }
     },
     created() {
@@ -45,12 +50,14 @@
     },
     methods: {
       trigger() {
-        this.$emit('triggered');
+        this.$emit('triggered', {
+          bet: this.bet
+        });
       }
     },
     computed: {
       meta() {
-        return this.response.data;
+        return this.$store.getters.betResponse;
       }
     }
   }
