@@ -12,21 +12,26 @@
     margin-left: 0;
     margin-right: 0;
     background: $black;
+    align-self: center;
     padding: 0 10px;
 
     &.slot-3 {
       max-height: $max-board-height-3 + 20px;
+      width: $max-board-height-3 + 60px;
 
       @media (max-width: $breakpoint-xs) {
         max-height: $max-board-m-height-3 + 20px;
+        max-width: 100%;
       }
     }
 
     &.slot-4 {
       max-height: $max-board-height-4 + 20px;
+      width: $max-board-height-4 + 60px;
 
       @media (max-width: $breakpoint-xs) {
         max-height: $max-board-m-height-4 + 20px;
+        max-width: 100%;
       }
     }
 
@@ -34,7 +39,9 @@
       max-height: $max-board-height-5 + 20px;
 
       @media (max-width: $breakpoint-xs) {
+        width: $max-board-height-5 + 60px;
         max-height: $max-board-m-height-5 + 20px;
+        max-width: 100%;
       }
     }
   }
