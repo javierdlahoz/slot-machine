@@ -8,14 +8,10 @@
           <slot-symbol :symbol="opt" :reel-index="reelIndex" :symbol-index="index"></slot-symbol>
         </div>
         <div class="slot__offset">
-          <div class="slot__item slot__item--copy" v-bind:class="slotStyle">
-            <slot-symbol :symbol="reel.items[0]" :reel-index="reelIndex"></slot-symbol>
-          </div>
-          <div class="slot__item slot__item--copy" v-bind:class="slotStyle">
-            <slot-symbol :symbol="reel.items[1]" :reel-index="reelIndex"></slot-symbol>
-          </div>
-          <div class="slot__item slot__item--copy" v-bind:class="slotStyle">
-            <slot-symbol :symbol="reel.items[2]" :reel-index="reelIndex"></slot-symbol>
+          <div class="slot__item slot__item--copy" 
+            v-for="i in rows" v-bind:key="i"
+            v-bind:class="slotStyle">
+            <slot-symbol :symbol="reel.items[i]" :reel-index="reelIndex"></slot-symbol>
           </div>
         </div>
       </div>

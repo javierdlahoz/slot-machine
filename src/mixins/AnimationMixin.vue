@@ -8,7 +8,6 @@
     mixins: [StyleMixin],
     data() {
       return {
-        animationDuration: 3000,
         opts: null,
         startedAt: null,
       };
@@ -19,7 +18,7 @@
 
         this.opts = this.reels.map((data, i) => {
           const slot = this.$refs.reels[i];
-          const choice = this.choices[i];
+          const choice = this.choices[i] ? this.choices[i] : Math.floor(Math.random(config.symbols));          
 
           const opts = {
             el: slot.querySelector(".slot__wrap"),
@@ -27,7 +26,7 @@
             choice: choice,
             startOffset: config.animationSpeed + Math.random() * 500 + i * 500,
             height: data.items.length * this.symbolHeight,
-            duration: this.animationDuration + i * config.stopDelay, // milliseconds
+            duration: config.animationDuration + i * config.stopDelay, // milliseconds
             isFinished: false,
           };
 

@@ -37,9 +37,9 @@
 
     &.slot-5 {
       max-height: $max-board-height-5 + 20px;
+      width: $max-board-height-5 + 60px;
 
       @media (max-width: $breakpoint-xs) {
-        width: $max-board-height-5 + 60px;
         max-height: $max-board-m-height-5 + 20px;
         max-width: 100%;
       }
@@ -97,6 +97,7 @@
 
   &.slot-4 {
     max-height: $max-board-height-4;
+    
     @media (max-width: $breakpoint-xs) {
       max-height: $max-board-m-height-4
     }
@@ -143,4 +144,11 @@
     }
   }
 
+}
+
+.col-c5 {
+  position: relative;
+  width: 100%;
+  flex: 0 0 20%;
+  max-width: 20%;
 }

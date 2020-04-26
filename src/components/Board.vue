@@ -1,8 +1,9 @@
 <template>
   <div class="container board">
     <div class="row mt-4 mb-4 board-container" v-bind:class="slotStyle">
-      <div class="reel-container col-4" 
-        v-bind:class="slotStyle" ref="reels" 
+      <div class="reel-container"
+        v-bind:class="reelsColClass" 
+        ref="reels" 
         v-for="(reel, index) in reels" v-bind:key="index">
         <slot-reel :reel="reel" :reel-index="index"></slot-reel>
       </div>
@@ -36,6 +37,15 @@
           reels.push({items: [...Array(this.symbolsAmount).keys()]});
         }
         return reels;
+      },
+      reelsColClass() {
+        const classesDic = {
+          3: 'col-4',
+          4: 'col-3',
+          5: 'col-c5'
+        };
+
+        return `${classesDic[config.reels]} ${this.slotStyle}`;
       }
     },
     methods: {
