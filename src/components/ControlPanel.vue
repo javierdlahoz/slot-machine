@@ -23,7 +23,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Bet: €</span>
         </div>
-        <input type="number" min="0.50" step="0.50" class="form-control" v-model="bet">
+        <input type="number" min="0.50" step="0.50" class="form-control" v-model="amount">
       </div>
       
       <button v-bind:disabled="spinning" class="btn btn-block btn-primary px-4" @click="trigger">
@@ -40,7 +40,7 @@
     data() {
       return {
         spinning: false,
-        bet: 0.50
+        amount: 0.50
       }
     },
     created() {
@@ -51,7 +51,7 @@
     methods: {
       trigger() {
         this.$emit('triggered', {
-          bet: this.bet
+          amount: this.amount
         });
       }
     },

@@ -16,7 +16,7 @@
     methods: {
       retrieveData(params, callback, error) {
         EventBus.$emit('spinning', true);
-        axios.get(this.endpoint, this.config(params))
+        axios.post(this.endpoint, params, this.config)
           .then(({data}) => {
             this.response = data;
             this.choices = data.data.payload.outcome;
@@ -30,28 +30,20 @@
             error(data);
           });
       },
-      config(params = {}) {
-        return {
-          params: Object.assign(params, this.params),
-          headers: this.headers
-        };
-      },
     },
     computed: {
       endpoint() {
-        return `${config.endpoint}`;
+        return `${config.baseUrl}/games/${config.gameId}/spin`;
+      },
+      config() {
+        return {
+          headers: this.headers
+        };
       },
       headers() {
-        const bearerToken = this.$store.getters.bearerToken;
-
-        return bearerToken ?
-          {
-            'Authorization': `Bearer ${bearerToken}`
-          }
-          : {};
-      },
-      params() {
-        return {};
+        return {
+          'Authorization': `Bearer ${config.token}`
+        };
       }
     }
   }
