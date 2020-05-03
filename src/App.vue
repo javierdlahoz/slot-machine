@@ -31,6 +31,12 @@
           // TODO: play with this data when needed
           this.game = data;
           this.$store.dispatch('setGame', this.game);
+          this.playGame();
+        });
+      },
+      playGame() {
+        this.loading = true;
+        this.retrievePlayerSession(() => {
           this.loading = false;
         });
       },

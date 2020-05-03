@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-12">
       <div v-if="meta && meta.outcome">
-        <div class="mb-2 flex flex-grow-1 text-center" v-if="meta.payline.length > 0">
-          Payline Log: {{ meta.payline }}
+        <div class="mb-2 flex flex-grow-1 text-center" v-if="meta.payouts.payline">
+          payouts Log: {{ meta.payouts.payline }}
         </div>
       </div>
     </div>

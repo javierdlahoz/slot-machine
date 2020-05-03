@@ -16,11 +16,11 @@
     methods: {
       retrieveSpinData(params, callback, error) {
         EventBus.$emit('spinning', true);
-        axios.post(this.spinEndpoint, params, this.config)
+        axios.post(this.spinEndpoint, params, {headers: this.spinHeaders})
           .then(({data}) => {
             this.response = data;
-            this.choices = data.data.payload.outcome;
-            this.payline = data.data.payload.payline ? data.data.payload.payline : [];
+            this.choices = data.data.outcome;
+            this.payline = data.data.payouts.payline ? data.data.payouts.payline : [];
             this.$store.dispatch('setBetResponse', data.data);
             callback(data);
           })
@@ -47,6 +47,16 @@
             Vue.$toast.error('Something went wrong');
             error(data);
           });
+      },
+      retrievePlayerSession(callback, error) {
+        axios.post(this.sessionEndpoint, {}, this.config)
+          .then(({data}) => {
+            this.$store.dispatch('setBearerToken', data.data.id);
+            callback(data);
+          }).catch((data) => {
+            Vue.$toast.error('Something went wrong');
+            error(data);
+          });
       }
     },
     computed: {
@@ -59,6 +69,9 @@
       gameEndpoint() {
         return `${config.baseUrl}/games/${config.gameId}`;
       },
+      sessionEndpoint() {
+        return `${config.baseUrl}/games/${config.gameId}/play`;
+      },
       config() {
         return {
           headers: this.headers
@@ -67,6 +80,11 @@
       headers() {
         return {
           'Authorization': `Bearer ${config.token}`
+        };
+      },
+      spinHeaders() {
+        return {
+          'Authorization': `Bearer ${this.$store.getters.bearerToken}`
         };
       }
     }
