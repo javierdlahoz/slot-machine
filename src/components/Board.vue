@@ -1,7 +1,9 @@
 <template>
   <div class="container board">
+    <h2 class="text-center"> {{ $store.getters.game.name }} </h2>
     <div class="row mt-4 mb-4 board-container" v-bind:class="slotStyle">
       <div class="reel-container"
+        v-bind:style="{height: `${reelHeight}px`}"
         v-bind:class="reelsColClass" 
         ref="reels" 
         v-for="(reel, index) in reels" v-bind:key="index">
@@ -12,23 +14,23 @@
   </div>
 </template>
 <script>
-  import config from "../services/config";
   import BackendServices from "../mixins/BackendMixin";
   import AnimationMixin from "../mixins/AnimationMixin";
   import StyleMixin from "../mixins/StyleMixin";
 
   export default {
     mixins: [BackendServices, AnimationMixin, StyleMixin],
-    props: {
-      reelAmount: Number,
-      rows: Number,
-      symbolsAmount: {
-        type: Number,
-        default: config.symbols
-      }
-    },
     data() {
-      return {};
+      return {
+        reelAmount: 0,
+        rows: 0,
+        symbolsAmount: 0
+      };
+    },
+    async created() {
+      this.reelAmount = this.$store.getters.game.options.cols;
+      this.rows = this.$store.getters.game.options.rows;
+      this.symbolsAmount = this.$store.getters.game.options.symbols;
     },
     computed: {
       reels() {
@@ -45,7 +47,7 @@
           5: 'col-c5'
         };
 
-        return `${classesDic[config.reels]} ${this.slotStyle}`;
+        return `${classesDic[this.reelAmount]} ${this.slotStyle}`;
       }
     },
     methods: {
@@ -53,7 +55,7 @@
         return isNaN(this.payline[index]) ? null : this.payline[index];
       },
       spin($event) {
-        this.retrieveData($event, () => {
+        this.retrieveSpinData($event, () => {
           this.startAnimatedSpin();
         }, (err) => {
           console.log(err);

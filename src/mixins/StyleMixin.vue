@@ -5,6 +5,7 @@
     data() {
       return {
         windowWidth: window.innerWidth,
+        rows: 1,
         symbolDic: {
           'lg-3': 130,
           'md-3': 130,
@@ -24,7 +25,8 @@
     mounted() {
       window.addEventListener('resize', () => {
         this.windowWidth = window.innerWidth;
-      })
+      });
+      this.rows = this.$store.getters.game.options.rows;
     },
     computed: {
       slotStyle() {
@@ -32,6 +34,12 @@
       },
       symbolHeight() {
         return this.symbolDic[`${this.breakpoint}-${config.reels}`];
+      },
+      slotWindowHeight() {
+        return this.symbolHeight;
+      },
+      reelHeight() {
+        return this.slotWindowHeight + 20;
       },
       breakpoint() {
         if (this.windowWidth > 1200) {

@@ -1,46 +1,41 @@
 <template>
   <div>
-    <splash-screen v-if="loading" :loading-percentage="loadingPercentage"></splash-screen>
-    <slot-wrapper :reel-amount="reelsAmount" :rows="rows"></slot-wrapper>
+    <splash-screen v-if="loading"></splash-screen>
+    <slot-board v-else></slot-board>
   </div>
 </template>
 <style lang="scss">
   @import "styles/app";
 </style>
 <script>
-  import config from "./services/config";
+  import BackedMixin from "./mixins/BackendMixin";
 
   export default {
+    mixins: [BackedMixin],
     data() {
       return {
         loading: true,
-        loadingPercentage: 0,
-        reelsAmount: config.reels,
-        rows: config.rows
+        loadingPercentage: 0
       }
     },
     async created() {
       this.initialize();
     },
     methods: {
-      initialize() {
-        if (this.$route.params.token) {
-          this.$store.dispatch('setBearerToken', this.$route.params.token);
-        }
-        this.preload();
+      async initialize() {
+        await this.preload();
+      },
+      getGame() {
+        this.loading = true;
+        this.retrieveGame(({data}) => {
+          // TODO: play with this data when needed
+          this.game = data;
+          this.$store.dispatch('setGame', this.game);
+          this.loading = false;
+        });
       },
       preload() {
-        if (this.loadingPercentage > 100) {
-          this.loading = false;
-          return;
-        }
-
-        setTimeout(() => {
-            this.loadingPercentage += 5;
-            this.preload();
-          },
-          50
-        );
+        this.getGame();
       }
     }
   };

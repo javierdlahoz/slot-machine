@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     bearerToken: null,
-    betResponse: null
+    betResponse: null,
+    game: null
   },
   mutations: {
     SET_BEARER_TOKEN(state, token) {
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     },
     SET_BET_RESPONSE(state, response) {
       state.betResponse = response;
+    },
+    SET_GAME(state, game) {
+      state.game = game;
     }
   },
   actions: {
@@ -22,6 +26,9 @@ export default new Vuex.Store({
     },
     setBetResponse: ({ commit }, response) => {
       commit('SET_BET_RESPONSE', response);
+    },
+    setGame: ({ commit }, game) => {
+      commit('SET_GAME', game);
     }
   },
   modules: {},
@@ -31,6 +38,9 @@ export default new Vuex.Store({
     },
     betResponse: state => {
       return state.betResponse;
+    },
+    game: state => {
+      return state.game;
     }
   }
 })

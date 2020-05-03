@@ -1,6 +1,7 @@
 <template>
   <div class="slot">
-    <div class="slot__window" v-bind:class="slotStyle">
+    <div class="slot__window" v-bind:class="slotStyle" 
+      v-bind:style="{'max-height': `${slotWindowHeight}px`}">
       <div class="slot__wrap">
         <div class="slot__item" 
           v-for="(opt, index) in reel.items" v-bind:key="opt" 
@@ -19,7 +20,6 @@
   </div>
 </template>
 <script>
-  import config from "../services/config";
   import StyleMixin from "../mixins/StyleMixin";
 
   export default {
@@ -33,8 +33,11 @@
     },
     data() {
       return {
-        rows: config.rows
+        rows: 1
       }
+    },
+    async created() {
+      this.rows = this.$store.getters.game.options.rows;
     }
   }
 </script>

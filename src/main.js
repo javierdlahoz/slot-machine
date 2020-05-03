@@ -28,7 +28,7 @@ Vue.use(VueCurrencyFilter,
   });
 
 Vue.component('slot-control-panel', require('./components/ControlPanel').default);
-Vue.component('slot-wrapper', require('./components/Board').default);
+Vue.component('slot-board', require('./components/Board').default);
 Vue.component('slot-reel', require('./components/Reel').default);
 Vue.component('splash-screen', require('./components/SplashScreen').default);
 

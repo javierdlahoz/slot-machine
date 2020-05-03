@@ -14,9 +14,9 @@
       };
     },
     methods: {
-      retrieveData(params, callback, error) {
+      retrieveSpinData(params, callback, error) {
         EventBus.$emit('spinning', true);
-        axios.post(this.endpoint, params, this.config)
+        axios.post(this.spinEndpoint, params, this.config)
           .then(({data}) => {
             this.response = data;
             this.choices = data.data.payload.outcome;
@@ -30,10 +30,34 @@
             error(data);
           });
       },
+      retrieveGames(callback, error) {
+        axios.get(this.gamesEndpoint, this.config)
+          .then(({data}) => {
+            callback(data);
+          }).catch((data) => {
+            Vue.$toast.error('Something went wrong');
+            error(data);
+          });
+      },
+      retrieveGame(callback, error) {
+        axios.get(this.gameEndpoint, this.config)
+          .then(({data}) => {
+            callback(data);
+          }).catch((data) => {
+            Vue.$toast.error('Something went wrong');
+            error(data);
+          });
+      }
     },
     computed: {
-      endpoint() {
+      spinEndpoint() {
         return `${config.baseUrl}/games/${config.gameId}/spin`;
+      },
+      gamesEndpoint() {
+        return `${config.baseUrl}/games`;
+      },
+      gameEndpoint() {
+        return `${config.baseUrl}/games/${config.gameId}`;
       },
       config() {
         return {
