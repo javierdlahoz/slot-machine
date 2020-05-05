@@ -4,8 +4,8 @@
     <div class="row mt-4 mb-4 board-container" v-bind:class="slotStyle">
       <div class="reel-container"
         v-bind:style="{height: `${reelHeight}px`}"
-        v-bind:class="reelsColClass" 
-        ref="reels" 
+        v-bind:class="reelsColClass"
+        ref="reels"
         v-for="(reel, index) in reels" v-bind:key="index">
         <slot-reel :reel="reel" :reel-index="index"></slot-reel>
       </div>

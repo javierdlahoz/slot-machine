@@ -1,18 +1,18 @@
 <template>
   <div class="slot">
-    <div class="slot__window" v-bind:class="slotStyle" 
+    <div class="slot__window" v-bind:class="slotStyle"
       v-bind:style="{'max-height': `${slotWindowHeight}px`}">
       <div class="slot__wrap">
-        <div class="slot__item" 
-          v-for="(opt, index) in reel.items" v-bind:key="opt" 
+        <div class="slot__item"
+          v-for="(opt, index) in reel.items" v-bind:key="opt"
           v-bind:class="slotStyle">
-          <slot-symbol :symbol="opt" :reel-index="reelIndex" :symbol-index="index"></slot-symbol>
+          <slot-symbol :row="0" :symbol="opt" :reel-index="reelIndex" :symbol-index="index"></slot-symbol>
         </div>
         <div class="slot__offset">
-          <div class="slot__item slot__item--copy" 
+          <div class="slot__item slot__item--copy"
             v-for="i in rows" v-bind:key="i"
             v-bind:class="slotStyle">
-            <slot-symbol :symbol="reel.items[i]" :reel-index="reelIndex"></slot-symbol>
+            <slot-symbol :row="i" :symbol="reel.items[i]" :reel-index="reelIndex"></slot-symbol>
           </div>
         </div>
       </div>
