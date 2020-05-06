@@ -6,6 +6,7 @@
   flex-grow: 1;
   height: 100vh;
   justify-content: center;
+  align-items: center;
   max-width: $max-board-width;
 
   .board-container {
@@ -14,6 +15,8 @@
     background: $black;
     align-self: center;
     padding: 0 10px;
+    border: 5px solid $dark-grey;
+    border-radius: 5px;
 
     &.slot-3 {
       max-height: $max-board-height-3 + 20px;
@@ -53,8 +56,9 @@
 }
 
 .reel-container {
-  padding-left: 5px;
-  padding-right: 5px;
+  // padding-left: 5px;
+  // padding-right: 5px;
+  padding: 5px;
 
   &.slot-3 {
     height: $max-board-height-3 + 20px;
@@ -97,7 +101,7 @@
 
   &.slot-4 {
     max-height: $max-board-height-4;
-    
+
     @media (max-width: $breakpoint-xs) {
       max-height: $max-board-m-height-4
     }

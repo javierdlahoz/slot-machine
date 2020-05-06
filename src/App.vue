@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="slot-machine">
     <splash-screen v-if="loading"></splash-screen>
     <slot-board v-else></slot-board>
   </div>
@@ -37,7 +37,9 @@
       playGame() {
         this.loading = true;
         this.retrievePlayerSession(() => {
-          this.loading = false;
+          // this.retrieveSessionInfo(() => {
+            this.loading = false;
+          // });
         });
       },
       preload() {

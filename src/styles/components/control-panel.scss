@@ -1,0 +1,31 @@
+@import '../variables';
+
+.control-panel {
+    max-width: $max-board-width;
+
+    &.slot-3 {
+      width: $max-board-height-3 + 90px;
+
+      @media (max-width: $breakpoint-xs) {
+        max-width: 100%;
+      }
+    }
+
+    &.slot-4 {
+      width: $max-board-height-4 + 90px;
+
+      @media (max-width: $breakpoint-xs) {
+        max-width: 100%;
+      }
+    }
+
+    &.slot-5 {
+      width: $max-board-height-5 + 90px;
+
+      @media (max-width: $breakpoint-xs) {
+        max-width: 100%;
+      }
+    }
+}
+
+

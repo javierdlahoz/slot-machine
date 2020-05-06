@@ -16,12 +16,13 @@
     methods: {
       retrieveSpinData(params, callback, error) {
         EventBus.$emit('spinning', true);
-        axios.post(this.spinEndpoint, params, {headers: this.spinHeaders})
+        axios.post(this.spinEndpoint, params, {headers: this.playerHeaders})
           .then(({data}) => {
             this.response = data;
             this.choices = data.data.outcome;
             this.payline = data.data.payouts.payline ? data.data.payouts.payline : [];
             this.$store.dispatch('setBetResponse', data.data);
+            this.$store.dispatch('setBalance', data.data.balance);
             callback(data);
           })
           .catch((data) => {
@@ -57,6 +58,16 @@
             Vue.$toast.error('Something went wrong');
             error(data);
           });
+      },
+      retrieveSessionInfo(callback, error) {
+        axios.get(`${config.baseUrl}`, {headers: this.playerHeaders})
+          .then(({data}) => {
+            this.$store.dispatch('setBalance', data.data.balance);
+            callback(data);
+          }).catch((data) => {
+            Vue.$toast.error('Something went wrong');
+            error(data);
+          });
       }
     },
     computed: {
@@ -82,7 +93,7 @@
           'Authorization': `Bearer ${config.token}`
         };
       },
-      spinHeaders() {
+      playerHeaders() {
         return {
           'Authorization': `Bearer ${this.$store.getters.bearerToken}`
         };
