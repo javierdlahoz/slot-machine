@@ -45,7 +45,6 @@
         for (let i = 1; i <= this.rows; i++) {
             list.push(i);
         }
-        console.log(list);
         return list;
       }
     }
