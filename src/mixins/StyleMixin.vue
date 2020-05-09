@@ -36,10 +36,10 @@
         return this.symbolDic[`${this.breakpoint}-${config.reels}`];
       },
       slotWindowHeight() {
-        return this.symbolHeight + 18;
+        return (this.symbolHeight  * this.$store.getters.game.options.rows) + 20;
       },
       reelHeight() {
-        return this.slotWindowHeight + 10;
+        return this.slotWindowHeight * this.$store.getters.game.options.rows;
       },
       breakpoint() {
         if (this.windowWidth > 1200) {

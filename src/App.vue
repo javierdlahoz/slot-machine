@@ -9,6 +9,7 @@
 </style>
 <script>
   import BackedMixin from "./mixins/BackendMixin";
+  import config from "./services/config";
 
   export default {
     mixins: [BackedMixin],
@@ -30,6 +31,9 @@
         this.retrieveGame(({data}) => {
           // TODO: play with this data when needed
           this.game = data;
+          if (!this.game.options) {
+            this.game.options = config;
+          }
           this.$store.dispatch('setGame', this.game);
           this.playGame();
         });

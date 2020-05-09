@@ -2,6 +2,7 @@ const config = {
   symbols: 25,
   reels: 3,
   rows: 3,
+  cols: 3,
   animationDuration: 4000,
   animationSpeed: 9000, // the higher the number the faster
   stopDelay: 150,

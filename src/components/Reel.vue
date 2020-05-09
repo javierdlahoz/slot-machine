@@ -10,7 +10,7 @@
         </div>
         <div class="slot__offset">
           <div class="slot__item slot__item--copy"
-            v-for="i in rows" v-bind:key="i"
+            v-for="i in rowsRange" v-bind:key="i"
             v-bind:class="slotStyle">
             <slot-symbol :row="i" :symbol="reel.items[i]" :reel-index="reelIndex"></slot-symbol>
           </div>
@@ -38,6 +38,16 @@
     },
     async created() {
       this.rows = this.$store.getters.game.options.rows;
+    },
+    computed: {
+      rowsRange() {
+        let list = [];
+        for (let i = 1; i <= this.rows; i++) {
+            list.push(i);
+        }
+        console.log(list);
+        return list;
+      }
     }
   }
 </script>
