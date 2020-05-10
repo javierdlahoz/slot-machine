@@ -52,7 +52,7 @@
       retrievePlayerSession(callback, error) {
         axios.post(this.sessionEndpoint, {}, this.config)
           .then(({data}) => {
-            this.$store.dispatch('setBearerToken', data.data.id);
+            // this.$store.dispatch('setBearerToken', data.data.id);
             callback(data);
           }).catch((data) => {
             Vue.$toast.error('Something went wrong');
@@ -60,13 +60,14 @@
           });
       },
       retrieveSessionInfo(callback, error) {
-        axios.get(`${config.baseUrl}`, {headers: this.playerHeaders})
+        axios.get(`${config.baseUrl}/`, {headers: this.playerHeaders})
           .then(({data}) => {
+            this.$store.dispatch('setGame', data.data.game);
             this.$store.dispatch('setBalance', data.data.balance);
             callback(data);
-          }).catch((data) => {
+          }).catch(() => {
             Vue.$toast.error('Something went wrong');
-            error(data);
+            if (error) error();
           });
       }
     },

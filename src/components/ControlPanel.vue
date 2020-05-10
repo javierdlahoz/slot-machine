@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="col-md-6 d-flex flex-column justify-content-center">
-      <h5 v-if="meta && meta.balance">
+      <h5 v-if="balance">
         Balance: {{ balance | currency }}
       </h5>
       <h5 v-if="meta && meta.bet">

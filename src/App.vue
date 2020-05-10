@@ -9,7 +9,7 @@
 </style>
 <script>
   import BackedMixin from "./mixins/BackendMixin";
-  import config from "./services/config";
+  // import config from "./services/config";
 
   export default {
     mixins: [BackedMixin],
@@ -25,34 +25,34 @@
     methods: {
       async initialize() {
         if (this.$route.params.token) {
-          this.$store.dispatch('setOperatorToken', this.$route.params.token);
+          this.$store.dispatch('setBearerToken', this.$route.params.token);
         }
         await this.preload();
       },
-      getGame() {
+      // getGame() {
+      //   this.loading = true;
+      //   this.retrieveGame(({data}) => {
+      //     // TODO: play with this data when needed
+      //     this.game = data;
+      //     if (!this.game.options) {
+      //       this.game.options = config;
+      //     }
+      //     this.$store.dispatch('setGame', this.game);
+      //     this.retrieveInitialData();
+      //   }, () => {
+      //     // window.location.href = '/';
+      //   });
+      // },
+      retrieveInitialData() {
         this.loading = true;
-        this.retrieveGame(({data}) => {
-          // TODO: play with this data when needed
-          this.game = data;
-          if (!this.game.options) {
-            this.game.options = config;
-          }
-          this.$store.dispatch('setGame', this.game);
-          this.playGame();
-        }, () => {
-          window.location.href = '/';
-        });
-      },
-      playGame() {
-        this.loading = true;
-        this.retrievePlayerSession(() => {
+        this.retrieveSessionInfo(() => {
           // this.retrieveSessionInfo(() => {
             this.loading = false;
           // });
         });
       },
       preload() {
-        this.getGame();
+        this.retrieveInitialData();
       }
     }
   };
