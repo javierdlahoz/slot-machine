@@ -24,6 +24,9 @@
     },
     methods: {
       async initialize() {
+        if (this.$route.params.token) {
+          this.$store.dispatch('setOperatorToken', this.$route.params.token);
+        }
         await this.preload();
       },
       getGame() {
@@ -36,6 +39,8 @@
           }
           this.$store.dispatch('setGame', this.game);
           this.playGame();
+        }, () => {
+          window.location.href = '/';
         });
       },
       playGame() {

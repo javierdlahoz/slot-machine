@@ -90,7 +90,7 @@
       },
       headers() {
         return {
-          'Authorization': `Bearer ${config.token}`
+          'Authorization': `Bearer ${this.$store.getters.operatorToken ?? config.token}`
         };
       },
       playerHeaders() {

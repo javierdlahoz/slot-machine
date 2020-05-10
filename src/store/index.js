@@ -5,12 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    operatorToken: null,
     bearerToken: null,
     betResponse: null,
     game: null,
     balance: null
   },
   mutations: {
+    SET_OPERATOR_TOKEN(state, token) {
+      state.operatorToken = token;
+    },
     SET_BEARER_TOKEN(state, token) {
       state.bearerToken = token;
     },
@@ -25,6 +29,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setOperatorToken: ({ commit }, token) => {
+      commit('SET_OPERATOR_TOKEN', token);
+    },
     setBearerToken: ({ commit }, token) => {
       commit('SET_BEARER_TOKEN', token);
     },
@@ -40,6 +47,9 @@ export default new Vuex.Store({
   },
   modules: {},
   getters: {
+    operatorToken: state => {
+      return state.operatorToken;
+    },
     bearerToken: state => {
       return state.bearerToken;
     },
