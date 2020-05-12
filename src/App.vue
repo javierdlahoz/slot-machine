@@ -5,55 +5,41 @@
   </div>
 </template>
 <style lang="scss">
-  @import "styles/app";
+@import "styles/app";
 </style>
 <script>
-  import BackedMixin from "./mixins/BackendMixin";
-  // import config from "./services/config";
+import BackedMixin from "./mixins/BackendMixin";
+// import config from "./services/config";
 
-  export default {
-    mixins: [BackedMixin],
-    data() {
-      return {
-        loading: true,
-        loadingPercentage: 0
+export default {
+  mixins: [BackedMixin],
+  data() {
+    return {
+      loading: true,
+      loadingPercentage: 0
+    };
+  },
+  async created() {
+    this.initialize();
+  },
+  methods: {
+    async initialize() {
+      if (this.$route.params.token) {
+        this.$store.dispatch("setBearerToken", this.$route.params.token);
       }
+      await this.preload();
     },
-    async created() {
-      this.initialize();
+    retrieveInitialData() {
+      this.loading = true;
+      this.retrieveSessionInfo(() => {
+        // this.retrieveSessionInfo(() => {
+        this.loading = false;
+        // });
+      });
     },
-    methods: {
-      async initialize() {
-        if (this.$route.params.token) {
-          this.$store.dispatch('setBearerToken', this.$route.params.token);
-        }
-        await this.preload();
-      },
-      // getGame() {
-      //   this.loading = true;
-      //   this.retrieveGame(({data}) => {
-      //     // TODO: play with this data when needed
-      //     this.game = data;
-      //     if (!this.game.options) {
-      //       this.game.options = config;
-      //     }
-      //     this.$store.dispatch('setGame', this.game);
-      //     this.retrieveInitialData();
-      //   }, () => {
-      //     // window.location.href = '/';
-      //   });
-      // },
-      retrieveInitialData() {
-        this.loading = true;
-        this.retrieveSessionInfo(() => {
-          // this.retrieveSessionInfo(() => {
-            this.loading = false;
-          // });
-        });
-      },
-      preload() {
-        this.retrieveInitialData();
-      }
+    preload() {
+      this.retrieveInitialData();
     }
-  };
+  }
+};
 </script>

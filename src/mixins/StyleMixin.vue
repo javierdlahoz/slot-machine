@@ -6,6 +6,8 @@
       return {
         windowWidth: window.innerWidth,
         rows: 1,
+        cols: 1,
+        defaultStyle: 3,
         symbolDic: {
           'lg-3': 130,
           'md-3': 130,
@@ -27,10 +29,11 @@
         this.windowWidth = window.innerWidth;
       });
       this.rows = this.$store.getters.game.options.rows;
+      this.cols = this.$store.getters.game.options.cols;
     },
     computed: {
       slotStyle() {
-        return `slot-${config.reels}`;
+        return `slot-${this.cols}`;
       },
       symbolHeight() {
         return this.symbolDic[`${this.breakpoint}-${config.reels}`];
