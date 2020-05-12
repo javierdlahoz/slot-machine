@@ -31,34 +31,6 @@
             error(data);
           });
       },
-      retrieveGames(callback, error) {
-        axios.get(this.gamesEndpoint, this.config)
-          .then(({data}) => {
-            callback(data);
-          }).catch((data) => {
-            Vue.$toast.error('Something went wrong');
-            error(data);
-          });
-      },
-      retrieveGame(callback, error) {
-        axios.get(this.gameEndpoint, this.config)
-          .then(({data}) => {
-            callback(data);
-          }).catch((data) => {
-            Vue.$toast.error('Something went wrong');
-            error(data);
-          });
-      },
-      retrievePlayerSession(callback, error) {
-        axios.post(this.sessionEndpoint, {}, this.config)
-          .then(({data}) => {
-            // this.$store.dispatch('setBearerToken', data.data.id);
-            callback(data);
-          }).catch((data) => {
-            Vue.$toast.error('Something went wrong');
-            error(data);
-          });
-      },
       retrieveSessionInfo(callback, error) {
         axios.get(`${config.baseUrl}/`, {headers: this.playerHeaders})
           .then(({data}) => {
@@ -74,15 +46,6 @@
     computed: {
       spinEndpoint() {
         return `${config.baseUrl}/games/${config.gameId}/spin`;
-      },
-      gamesEndpoint() {
-        return `${config.baseUrl}/games`;
-      },
-      gameEndpoint() {
-        return `${config.baseUrl}/games/${config.gameId}`;
-      },
-      sessionEndpoint() {
-        return `${config.baseUrl}/games/${config.gameId}/play`;
       },
       config() {
         return {
