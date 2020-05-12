@@ -25,7 +25,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Bet: €</span>
             </div>
-            <input type="number" min="0.50" step="0.50" class="form-control" v-model="amount">
+            <input type="number" min="0.50" step="0.50" class="form-control" v-model="amount" v-bind:disabled="autoSpinning">
           </div>
 
           <div class="input-group mb-2">
