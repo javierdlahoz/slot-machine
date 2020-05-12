@@ -26,6 +26,9 @@ export default new Vuex.Store({
     },
     SET_BALANCE(state, balance) {
       state.balance = balance;
+    },
+    BET(state, bet) {
+      state.balance -= bet;
     }
   },
   actions: {
@@ -43,6 +46,9 @@ export default new Vuex.Store({
     },
     setBalance: ({ commit }, balance) => {
       commit('SET_BALANCE', balance);
+    },
+    bet: ({ commit }, bet) => {
+      commit('BET', bet);
     }
   },
   modules: {},

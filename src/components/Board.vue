@@ -59,6 +59,8 @@
         return isNaN(this.payline[index]) ? null : this.payline[index];
       },
       spin($event) {
+        this.$store.dispatch('bet', $event.amount);
+
         this.retrieveSpinData($event, () => {
           this.startAnimatedSpin();
         }, (err) => {
