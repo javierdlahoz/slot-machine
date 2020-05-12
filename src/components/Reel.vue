@@ -42,7 +42,7 @@
     computed: {
       rowsRange() {
         let list = [];
-        for (let i = 1; i <= this.rows; i++) {
+        for (let i = 0; i < this.rows; i++) {
             list.push(i);
         }
         return list;

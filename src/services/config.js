@@ -4,8 +4,8 @@ const config = {
   rows: 1,
   cols: 3,
   animationDuration: 3000,
-  animationSpeed: 9000, // the higher the number the faster
-  stopDelay: 300,
+  animationSpeed: 10000, // the higher the number the faster
+  stopDelay: 200,
   gameId: 1,
   baseUrl: `https://casino.nomadnt.com`,
   token: `very-strong-random-string-1`
