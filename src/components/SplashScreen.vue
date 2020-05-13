@@ -9,18 +9,21 @@
   </div>
 </template>
 <script>
+  import config from '../services/config';
+
   export default {
     props: {
       loadingPercentage: Number
     },
     data() {
       return {
-        game: null
+        game: null,
+        theme: config.theme
       };
     },
     computed: {
       logoSrc() {
-        return require(`../assets/themes/${window.slotConfig.theme}/logo.png`);
+        return require(`../assets/themes/${this.theme}/logo.png`);
       },
       progressClass() {
         return `width: ${this.loadingPercentage}%`;

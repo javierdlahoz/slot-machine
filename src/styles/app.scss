@@ -3,24 +3,4 @@
 @import "components/board";
 @import "components/splash";
 @import "components/control-panel";
-
-.slot-machine {
-  background-color: #000000;
-  color: $light-grey;
-}
-
-.form-control {
-  background-color: transparent !important;
-  color: $light-grey !important;
-}
-
-.input-group-text {
-  background-color: $dark-grey;
-  color: $light-grey;
-}
-
-body {
-  background-color: $black;
-  color: $white;
-  overflow: hidden;
-}
+@import "utils";

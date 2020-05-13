@@ -2,7 +2,7 @@ import '@babel/polyfill'
 import 'mutationobserver-shim'
 import Vue from 'vue'
 import './plugins/fontawesome'
-import './plugins/bootstrap-vue'
+import 'purecss/build/pure.css';
 import App from './App.vue'
 import store from './store'
 import VueToast from 'vue-toast-notification';

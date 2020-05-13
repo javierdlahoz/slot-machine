@@ -8,6 +8,7 @@
         rows: 1,
         cols: 1,
         defaultStyle: 3,
+        theme: config.theme,
         symbolDic: {
           'lg-3': 130,
           'md-3': 130,
@@ -39,10 +40,10 @@
         return this.symbolDic[`${this.breakpoint}-${config.reels}`];
       },
       slotWindowHeight() {
-        return (this.symbolHeight  * this.$store.getters.game.options.rows) + 20;
+        return (this.symbolHeight  * this.$store.getters.game.options.rows);
       },
       reelHeight() {
-        return (this.slotWindowHeight * this.$store.getters.game.options.rows) + 10;
+        return (this.slotWindowHeight * this.$store.getters.game.options.rows);
       },
       breakpoint() {
         if (this.windowWidth > 1200) {
