@@ -8,6 +8,7 @@ const config = {
   stopDelay: 200,
   gameId: 1,
   autoSpinTimeout: 3000,
+  theme: 'crypto',
   baseUrl: `https://casino.nomadnt.com`,
   token: `very-strong-random-string-1`
 }

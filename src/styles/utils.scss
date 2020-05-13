@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+$spaceamounts: (1, 2, 3, 4, 5, 6, 7, 8); // Adjust this to include the pixel amounts you need.
+$sides: (top, bottom, left, right); // Leave this variable alone
+
+@each $space in $spaceamounts {
+  @each $side in $sides {
+    .m#{str-slice($side, 0, 1)}-#{$space} {
+      margin-#{$side}: #{$space/4}em !important;
+    }
+
+    .p#{str-slice($side, 0, 1)}-#{$space} {
+      padding-#{$side}: #{$space/4}em !important;
+    }
+  }
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: $black;
+  color: $white;
+  overflow: hidden;
+}
+
+.pure-g, .pure-form, .pure-g [class *= "pure-u"] {
+  font-family: inherit;
+  font-size: 18px;
+}
+
+.slot-machine {
+  background-color: #000000;
+  color: $light-grey;
+}
+
+input {
+  background-color: transparent !important;
+  color: $light-grey !important;
+  max-width: 200px;
+}
+
+.input-group-text {
+  background-color: $dark-grey;
+  color: $light-grey;
+}
+
+.container {
+  margin: auto;
+}
+
+.float-right {
+  float: right;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.text-left {
+  text-align: left;
+}

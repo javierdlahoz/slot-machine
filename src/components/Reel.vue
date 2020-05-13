@@ -1,7 +1,7 @@
 <template>
   <div class="slot">
     <div class="slot__window" v-bind:class="slotStyle"
-      v-bind:style="{'max-height': `${slotWindowHeight}px`}">
+      v-bind:style="{'max-height': `${slotReelWindowHeight}px`}">
       <div class="slot__wrap">
         <div class="slot__item"
           v-for="(opt, index) in reel.items" v-bind:key="opt"
@@ -46,6 +46,9 @@
             list.push(i);
         }
         return list;
+      },
+      slotReelWindowHeight() {
+        return this.slotWindowHeight + 20;
       }
     }
   }

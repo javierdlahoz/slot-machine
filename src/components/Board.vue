@@ -1,7 +1,7 @@
 <template>
   <div class="container board">
     <h2 class="text-center"> {{ $store.getters.game.name }} </h2>
-    <div class="row mt-4 mb-4 board-container" v-bind:class="slotStyle"
+    <div class="pure-g mt-4 mb-4 board-container" v-bind:class="slotStyle"
       v-bind:style="{'max-height': `${boardHeight}px`}">
       <div class="reel-container"
         v-bind:style="{height: `${reelHeight}px`}"
@@ -43,9 +43,9 @@
       },
       reelsColClass() {
         const classesDic = {
-          3: 'col-4',
-          4: 'col-3',
-          5: 'col-c5'
+          3: 'pure-u-1-3',
+          4: 'pure-u-1-4',
+          5: 'pure-u-1-5'
         };
 
         return `${classesDic[this.reelAmount]} ${this.slotStyle}`;

@@ -1,50 +1,46 @@
 <template>
-  <div class="row control-panel" v-bind:class="slotStyle">
-    <div class="col-md-12">
+  <div class="pure-g control-panel">
+    <div class="pure-u-1-1">
       <div v-if="meta && meta.outcome">
         <div class="mb-2 flex flex-grow-1 text-center" v-if="meta.payouts.payline">
           payouts Log: {{ meta.payouts.payline }}
         </div>
       </div>
     </div>
-    <div class="col-md-6 d-flex flex-column justify-content-center">
-      <h5 v-if="balance">
+    <div class="pure-u-1-2">
+      <h3 v-if="balance">
         Balance: {{ balance | currency }}
-      </h5>
-      <h5 v-if="meta && meta.bet">
+      </h3>
+      <h3 v-if="meta && meta.bet">
         Bet: {{ meta.bet | currency }}
-      </h5>
-      <h5 v-if="meta && meta.win">
+      </h3>
+      <h3 v-if="meta && meta.win">
         Win: {{ meta.win | currency }}
-      </h5>
+      </h3>
     </div>
-    <div class="col-md-6 text-right">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Bet: €</span>
-            </div>
-            <input type="number" min="0.50" step="0.50" class="form-control" v-model="amount" v-bind:disabled="autoSpinning">
+    <div class="pure-u-1-2 text-right">
+      <div class="pure-g">
+        <div class="pure-u-1-1 pure-form text-right">
+          <div class="pure-control-group mb-2">
+            <label class="mr-2">Bet: €</label>
+            <input type="number" min="0.50" step="0.50" v-model="amount" v-bind:disabled="autoSpinning">
           </div>
 
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Auto spin:</span>
-            </div>
-            <input type="number" min="0" step="1" class="form-control" v-model="autoSpins">
+          <div class="pure-control-group mb-2">
+            <label class="mr-2">Auto spin:</label>
+            <input type="number" min="0" step="1" v-model="autoSpins">
           </div>
 
-          <button v-bind:disabled="spinning || autoSpinning" class="btn btn-block btn-primary px-4" @click="trigger">
-            <font-awesome-icon icon="spinner" v-if="spinning" spin class="mx-2"></font-awesome-icon>
+          <button v-bind:disabled="spinning || autoSpinning" class="pure-button pure-button-primary mb-2" @click="trigger">
+            <font-awesome-icon icon="spinner" v-if="spinning" spin class="mr-2"></font-awesome-icon>
             <span v-else>Spin</span>
           </button>
 
-          <button v-if="autoSpinning" v-bind:disabled="spinning" class="btn btn-block btn-danger px-4" @click="stopAutoSpin">
-            <font-awesome-icon icon="spinner" v-if="spinning" spin class="mx-2"></font-awesome-icon>
+          <button v-if="autoSpinning" v-bind:disabled="spinning" class="pure-button pure-button-primary ml-2 mb-2" @click="stopAutoSpin">
+            <font-awesome-icon icon="spinner" v-if="spinning" spin class="mr-2"></font-awesome-icon>
             <span>({{spinCountdown}}) Stop </span>
           </button>
-          <button v-else v-bind:disabled="spinning" class="btn btn-block btn-warning px-4" @click="triggerAutoSpin(autoSpins)">
+          <button v-else v-bind:disabled="spinning" class="pure-button pure-button-primary ml-2 mb-2" @click="triggerAutoSpin(autoSpins)">
             <span>Auto Spin</span>
           </button>
 
