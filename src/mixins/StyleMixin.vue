@@ -43,7 +43,8 @@
         return (this.symbolHeight  * this.$store.getters.game.options.rows);
       },
       reelHeight() {
-        return (this.slotWindowHeight * this.$store.getters.game.options.rows);
+        const rows = this.$store.getters.game.options.rows;
+        return rows > 1 ? (this.slotWindowHeight * rows) : this.slotWindowHeight + 20;
       },
       breakpoint() {
         if (this.windowWidth > 1200) {

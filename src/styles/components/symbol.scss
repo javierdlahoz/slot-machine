@@ -47,4 +47,11 @@
     color: $yellow;
     font-weight: bold;
   }
+
+  .slot__winning-amount {
+    color: $white;
+    font-size: 38px;
+    font-weight: bold;
+    text-shadow: -1px 0 $black, 0 1px $black, 1px 0 $black, 0 -1px $black;
+  }
 }

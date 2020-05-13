@@ -18,11 +18,11 @@
     overflow: hidden;
 
     &.slot-3 {
-      max-height: $max-board-height-3 + 20px;
+      max-height: $max-board-height-3 + 40px;
       width: $max-board-height-3 + 60px;
 
       @media (max-width: $breakpoint-xs) {
-        max-height: $max-board-m-height-3 + 20px;
+        max-height: $max-board-m-height-3 + 40px;
         max-width: 100%;
       }
     }

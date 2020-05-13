@@ -1,12 +1,13 @@
 <template>
     <div>
+        <template v-if="winnerSymbol && !spinning">
+            <component :is="winnerComponent" :symbol="symbol"></component>
+        </template>
         <div class="slot__symbol-wrapper position-relative"
+             v-else
              v-bind:class="slotStyle"
              v-bind:style="{ 'background-image': 'url(' + imageSrc + ')' }"
         >
-            <template v-if="winnerSymbol && !spinning">
-                <component :is="winnerComponent"></component>
-            </template>
         </div>
     </div>
 </template>
