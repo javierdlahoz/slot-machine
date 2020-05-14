@@ -18,10 +18,10 @@
           'md-4': 190,
           'sm-4': 190,
           'xs-4': 190,
-          'lg-5': 190,
-          'md-5': 190,
-          'sm-5': 190,
-          'xs-5': 190,
+          'lg-5': 160,
+          'md-5': 160,
+          'sm-5': 110,
+          'xs-5': 110,
         }
       }
     },
@@ -37,14 +37,17 @@
         return `slot-${this.cols}`;
       },
       symbolHeight() {
-        return this.symbolDic[`${this.breakpoint}-${config.reels}`];
+        return this.symbolDic[`${this.breakpoint}-${this.$store.getters.game.options.cols}`];
       },
       slotWindowHeight() {
         return (this.symbolHeight  * this.$store.getters.game.options.rows);
       },
       reelHeight() {
         const rows = this.$store.getters.game.options.rows;
-        return rows > 1 ? (this.slotWindowHeight * rows) : this.slotWindowHeight + 20;
+        const offset = ['sm', 'xs'].includes(this.breakpoint) ? 6 : 20;
+
+        console.log(rows > 1 ? (this.slotWindowHeight * rows) : this.slotWindowHeight + offset);
+        return rows > 1 ? (this.slotWindowHeight * rows) : this.slotWindowHeight + offset;
       },
       breakpoint() {
         if (this.windowWidth > 1200) {

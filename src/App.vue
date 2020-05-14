@@ -1,5 +1,5 @@
 <template>
-    <div class="slot-machine" v-bind:style="{ 'background-image': 'url(' + bgSrc + ')' }">
+    <div>
         <splash-screen v-if="loading"></splash-screen>
         <slot-board v-else></slot-board>
     </div>
@@ -40,11 +40,6 @@
       },
       preload() {
         this.retrieveInitialData();
-      }
-    },
-    computed: {
-      bgSrc() {
-        return require(`./assets/themes/${this.theme}/background/bg.png`);
       }
     }
   };

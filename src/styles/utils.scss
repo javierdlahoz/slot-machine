@@ -13,6 +13,14 @@ $sides: (top, bottom, left, right); // Leave this variable alone
       padding-#{$side}: #{$space/4}em !important;
     }
   }
+
+  .m-#{$space} {
+    margin: #{$space/4}em !important;
+  }
+
+  .p-#{$space} {
+    padding: #{$space/4}em !important;
+  }
 }
 
 body {
@@ -28,6 +36,11 @@ body {
 }
 
 .slot-machine {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  height: 100vh;
   background-color: #000000;
   color: $light-grey;
 }
@@ -35,7 +48,7 @@ body {
 input {
   background-color: transparent !important;
   color: $light-grey !important;
-  max-width: 200px;
+  max-width: 100px;
 }
 
 .input-group-text {

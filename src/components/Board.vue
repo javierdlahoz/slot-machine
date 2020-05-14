@@ -1,23 +1,26 @@
 <template>
-  <div class="container board">
-    <h2 class="text-center"> {{ $store.getters.game.name }} </h2>
-    <div class="pure-g mt-4 mb-4 board-container" v-bind:class="slotStyle"
-      v-bind:style="{'max-height': `${boardHeight}px`}">
-      <div class="reel-container"
-        v-bind:style="{height: `${reelHeight}px`}"
-        v-bind:class="reelsColClass"
-        ref="reels"
-        v-for="(reel, index) in reels" v-bind:key="index">
-        <slot-reel :reel="reel" :reel-index="index"></slot-reel>
-      </div>
+    <div class="slot-machine" v-bind:style="{ 'background-image': 'url(' + bgSrc + ')' }">
+        <div class="container board">
+            <h2 class="text-center"> {{ $store.getters.game.name }} </h2>
+            <div class="pure-g mt-4 mb-4 board-container" v-bind:class="slotStyle"
+                 v-bind:style="{'max-height': `${boardHeight}px`}">
+                <div class="reel-container"
+                     v-bind:style="{height: `${reelHeight}px`}"
+                     v-bind:class="reelsColClass"
+                     ref="reels"
+                     v-for="(reel, index) in reels" v-bind:key="index">
+                    <slot-reel :reel="reel" :reel-index="index"></slot-reel>
+                </div>
+            </div>
+        </div>
+        <slot-control-panel @triggered="spin($event)"></slot-control-panel>
     </div>
-    <slot-control-panel @triggered="spin($event)"></slot-control-panel>
-  </div>
 </template>
 <script>
   import BackendServices from "../mixins/BackendMixin";
   import AnimationMixin from "../mixins/AnimationMixin";
   import StyleMixin from "../mixins/StyleMixin";
+  import config from "../services/config";
 
   export default {
     mixins: [BackendServices, AnimationMixin, StyleMixin],
@@ -25,7 +28,8 @@
       return {
         reelAmount: 0,
         rows: 0,
-        symbolsAmount: 0
+        symbolsAmount: 0,
+        theme: config.theme
       };
     },
     async created() {
@@ -52,6 +56,9 @@
       },
       boardHeight() {
         return this.slotWindowHeight + 20;
+      },
+      bgSrc() {
+        return require(`../assets/themes/${this.theme}/background/bg.png`);
       }
     },
     methods: {
