@@ -10,21 +10,21 @@
       return {
         opts: null,
         startedAt: null,
+        finished: false
       };
     },
     methods: {
-      startAnimatedSpin() {
-        if (this.opts) return;
-
+      startAnimation() {
         this.opts = this.reels.map((data, i) => {
           const slot = this.$refs.reels[i];
-          const choice = this.choices[i] ? this.choices[i] : Math.floor(Math.random(config.symbols));          
+          //const choice = this.choices[i] ? this.choices[i] : Math.floor(Math.random(config.symbols));          
 
           const opts = {
             el: slot.querySelector(".slot__wrap"),
-            finalPos: choice * this.symbolHeight,
-            choice: choice,
+            finalPos: 0, //choice * this.symbolHeight,
+            choice: 0,
             startOffset: config.animationSpeed + Math.random() * 500 + i * 500,
+            offset: 0,
             height: data.items.length * this.symbolHeight,
             duration: config.animationDuration + i * config.stopDelay, // milliseconds
             isFinished: false,
@@ -33,9 +33,50 @@
           return opts;
         });
 
-        next(this.animateSpin);
+        // next(this.animateSpin);
+        next(this.spiningAnimation);
       },
-      animateSpin(timestamp) {
+      startAnimatedSpin() {
+        this.startAnimation(); return;
+        // if (this.opts) return;
+
+        // this.opts = this.reels.map((data, i) => {
+        //   const slot = this.$refs.reels[i];
+        //   const choice = this.choices[i] ? this.choices[i] : Math.floor(Math.random(config.symbols));          
+
+        //   const opts = {
+        //     el: slot.querySelector(".slot__wrap"),
+        //     finalPos: choice * this.symbolHeight,
+        //     choice: choice,
+        //     startOffset: config.animationSpeed + Math.random() * 500 + i * 500,
+        //     height: data.items.length * this.symbolHeight,
+        //     duration: config.animationDuration + i * config.stopDelay, // milliseconds
+        //     isFinished: false,
+        //   };
+
+        //   return opts;
+        // });
+
+        //next(this.animateSpin);
+      },
+      spiningAnimation(offset = 0) {
+        this.opts.forEach((opt) => {
+          const pos = -1 * Math.floor((offset + opt.finalPos) % opt.height);
+          opt.el.style.transform = "translateY(" + pos + "px)";
+          opt.offset = offset;
+        });
+
+        if (!this.finished) {
+          setTimeout(() => {
+            this.spiningAnimation(offset + 70);
+          }, 5);
+        }
+      },
+      stopAnimation() {
+        this.finished = true;
+        this.animateStop();
+      },
+      animateStop(timestamp) {
         if (this.startedAt == null) {
           this.startedAt = timestamp;
         }
@@ -51,7 +92,7 @@
           const power = config.reels;
           const offset =
             (Math.pow(timeRemaining, power) / Math.pow(opt.duration, power)) *
-            opt.startOffset;
+            opt.offset;
 
           // negative, such that slots move from top to bottom
           const pos = -1 * Math.floor((offset + opt.finalPos) % opt.height);
@@ -66,9 +107,10 @@
         if (this.opts.every((o) => o.isFinished)) {
           this.opts = null;
           this.startedAt = null;
+          this.finished = false;
           setTimeout(() => EventBus.$emit("spinning", false), 200);
         } else {
-          next(this.animateSpin);
+          next(this.animateStop);
         }
       },
     },

@@ -4,7 +4,7 @@
       v-bind:style="{'max-height': `${slotReelWindowHeight}px`}">
       <div class="slot__wrap">
         <div class="slot__item"
-          v-for="(opt, index) in reel.items" v-bind:key="opt"
+          v-for="(opt, index) in reel.items" v-bind:key="index"
           v-bind:class="slotStyle">
           <slot-symbol :row="0" :symbol="opt" :reel-index="reelIndex" :symbol-index="index"></slot-symbol>
         </div>

@@ -3,9 +3,9 @@ const config = {
   reels: 3,
   rows: 1,
   cols: 3,
-  animationDuration: 3000,
+  animationDuration: 1000,
   animationSpeed: 10000, // the higher the number the faster
-  stopDelay: 200,
+  stopDelay: 150,
   gameId: 1,
   autoSpinTimeout: 3000,
   theme: 'crypto',

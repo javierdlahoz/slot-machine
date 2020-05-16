@@ -22,6 +22,7 @@
       @media (max-width: $breakpoint-sm) {
         max-height: $max-board-m-height-3 + 40px;
         max-width: 100%;
+        width: 100vw;
       }
     }
 
@@ -32,6 +33,7 @@
       @media (max-width: $breakpoint-sm) {
         max-height: $max-board-m-height-4 + 20px;
         max-width: 100%;
+        width: 100vw;
       }
     }
 
@@ -43,6 +45,7 @@
       @media (max-width: $breakpoint-sm) {
         max-height: $max-board-m-height-5 + 20px;
         max-width: 100%;
+        width: 100vw;
       }
     }
   }
@@ -52,6 +55,10 @@
   width: 100%;
   float: left;
   padding: 0 0.5em;
+
+  @media (max-width: $breakpoint-xs) {
+    padding: 0;
+  }
 }
 
 .reel-container {
@@ -86,6 +93,10 @@
   width: 90%;
   min-height: 120px;
   overflow: hidden;
+
+  @media (max-width: $breakpoint-xs) {
+    width: 100%;
+  }
 
   &.slot-3 {
     max-height: $max-board-height-3;

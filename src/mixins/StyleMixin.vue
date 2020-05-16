@@ -20,8 +20,8 @@
           'xs-4': 190,
           'lg-5': 160,
           'md-5': 160,
-          'sm-5': 110,
-          'xs-5': 110,
+          'sm-5': 130,
+          'xs-5': 105,
         }
       }
     },
@@ -46,7 +46,6 @@
         const rows = this.$store.getters.game.options.rows;
         const offset = ['sm', 'xs'].includes(this.breakpoint) ? 6 : 20;
 
-        console.log(rows > 1 ? (this.slotWindowHeight * rows) : this.slotWindowHeight + offset);
         return rows > 1 ? (this.slotWindowHeight * rows) : this.slotWindowHeight + offset;
       },
       breakpoint() {
