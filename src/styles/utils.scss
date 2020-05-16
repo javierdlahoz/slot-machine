@@ -58,6 +58,11 @@ input {
 
 .container {
   margin: auto;
+
+  @media (max-width: $breakpoint-sm) {
+    margin: 0;
+    width: 100vw;
+  }
 }
 
 .float-right {
