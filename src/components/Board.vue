@@ -29,22 +29,17 @@
         reelAmount: 0,
         rows: 0,
         symbolsAmount: 0,
-        theme: config.theme
+        theme: config.theme,
+        reels: []
       };
     },
     async created() {
       this.reelAmount = this.$store.getters.game.options.cols;
       this.rows = this.$store.getters.game.options.rows;
       this.symbolsAmount = this.$store.getters.game.options.symbols;
+      this.reels = this.getReels();
     },
     computed: {
-      reels() {
-        let reels = [];
-        for (let i = 0; i < this.reelAmount; i++) {
-          reels.push({items: [...Array(this.symbolsAmount).keys()]});
-        }
-        return reels;
-      },
       reelsColClass() {
         const classesDic = {
           3: 'pure-u-1-3',
@@ -62,14 +57,42 @@
       }
     },
     methods: {
+      getReels() {
+        let reels = [];
+        for (let i = 0; i < this.reelAmount; i++) {
+          reels.push({items: [...Array(this.symbolsAmount).keys()]});
+        }
+        return reels;
+      },
       winnerSymbol(index) {
         return isNaN(this.payline[index]) ? null : this.payline[index];
       },
+      chunckReels(outcome) {
+        let reels = [];
+
+        for (let i = 0; i < this.reelAmount; i++) {
+          let indexes = [];
+          for (let j = 0; j < this.rows; j++) {
+            indexes.push((j * this.reelAmount) + i);
+          }
+          reels[i] = outcome.filter((symbol, index) => indexes.includes(index)).reverse()
+        }
+        return reels;
+      },
       spin($event) {
+        this.startAnimation();
         this.$store.dispatch('bet', $event.amount);
 
-        this.retrieveSpinData($event, () => {
-          this.startAnimatedSpin();
+        this.retrieveSpinData($event, (data) => {
+          const outcomeReels = this.chunckReels(data.data.outcome);
+          this.reels.forEach((reel, index) => {
+            reel.items = reel.items.slice(outcomeReels[index].length - 1, reel.items.length - 1);
+            reel.items = outcomeReels[index].concat(reel.items);
+          });
+
+          setTimeout(() => {
+            this.stopAnimation();
+          }, config.animationDuration);
         }, (err) => {
           console.log(err);
         });
