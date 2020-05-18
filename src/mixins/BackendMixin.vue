@@ -15,6 +15,8 @@
     },
     methods: {
       retrieveSpinData(params, callback, error) {
+        params.is_fake = this.$route.query.is_fake ? true : undefined;
+
         EventBus.$emit('spinning', true);
         axios.post(this.spinEndpoint, params, {headers: this.playerHeaders})
           .then(({data}) => {

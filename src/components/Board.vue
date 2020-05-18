@@ -94,6 +94,7 @@
             this.stopAnimation();
           }, config.animationDuration);
         }, (err) => {
+          this.stopAnimation();
           console.log(err);
         });
       },

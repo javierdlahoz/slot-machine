@@ -4,6 +4,25 @@
   width: 100vw;
   background-color: rgba($black, 0.6);
 
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .balance-panel {
+    @media (max-width: $breakpoint-sm) {
+      .text-right, .text-center {
+        text-align: left;
+      }
+    }
+  }
+
   h3 {
     margin-top: 0;
     margin-bottom: 0.5em;
@@ -43,6 +62,31 @@
 
   .auto-spin-input {
     max-width: 80px;
+  }
+
+  .spin-btn {
+    width: 170px;
+    height: 96px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  .autospin-btn {
+    width: 86px;
+    height: 48px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    align-self: flex-end;
+
+    img {
+      height: 100%;
+      width: auto;
+    }
   }
 }
 

@@ -89,13 +89,17 @@
 }
 
 .slot__window {
-  background-color: rgba($black, 0.3);
+  //background-color: rgba($black, 0.3);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
   width: 90%;
   min-height: 120px;
   overflow: hidden;
 
   @media (max-width: $breakpoint-xs) {
     width: 100%;
+    background-size: cover;
   }
 
   &.slot-3 {

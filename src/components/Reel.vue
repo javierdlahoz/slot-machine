@@ -1,7 +1,7 @@
 <template>
   <div class="slot">
     <div class="slot__window" v-bind:class="slotStyle"
-      v-bind:style="{'max-height': `${slotReelWindowHeight}px`}">
+      v-bind:style="{'max-height': `${slotReelWindowHeight}px`, 'background-image': `url(${reelBackgroundUrl})`}">
       <div class="slot__wrap">
         <div class="slot__item"
           v-for="(opt, index) in reel.items" v-bind:key="index"
@@ -21,6 +21,7 @@
 </template>
 <script>
   import StyleMixin from "../mixins/StyleMixin";
+  import config from "../services/config";
 
   export default {
     mixins: [StyleMixin],
@@ -33,7 +34,8 @@
     },
     data() {
       return {
-        rows: 1
+        rows: 1,
+        theme: config.theme
       }
     },
     async created() {
@@ -49,6 +51,9 @@
       },
       slotReelWindowHeight() {
         return this.slotWindowHeight + 20;
+      },
+      reelBackgroundUrl() {
+        return require(`../assets/themes/${this.theme}/background/reel.png`);
       }
     }
   }

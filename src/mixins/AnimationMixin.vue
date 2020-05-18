@@ -10,54 +10,29 @@
       return {
         opts: null,
         startedAt: null,
-        finished: false
+        finished: false,
+        animationPositionJump: 100
       };
     },
     methods: {
       startAnimation() {
         this.opts = this.reels.map((data, i) => {
           const slot = this.$refs.reels[i];
-          //const choice = this.choices[i] ? this.choices[i] : Math.floor(Math.random(config.symbols));          
 
           const opts = {
             el: slot.querySelector(".slot__wrap"),
-            finalPos: 0, //choice * this.symbolHeight,
+            finalPos: 0,
             choice: 0,
             startOffset: config.animationSpeed + Math.random() * 500 + i * 500,
             offset: 0,
             height: data.items.length * this.symbolHeight,
-            duration: config.animationDuration + i * config.stopDelay, // milliseconds
+            duration: config.animationDuration + i * config.stopDelay,
             isFinished: false,
           };
 
           return opts;
         });
-
-        // next(this.animateSpin);
         next(this.spiningAnimation);
-      },
-      startAnimatedSpin() {
-        this.startAnimation(); return;
-        // if (this.opts) return;
-
-        // this.opts = this.reels.map((data, i) => {
-        //   const slot = this.$refs.reels[i];
-        //   const choice = this.choices[i] ? this.choices[i] : Math.floor(Math.random(config.symbols));          
-
-        //   const opts = {
-        //     el: slot.querySelector(".slot__wrap"),
-        //     finalPos: choice * this.symbolHeight,
-        //     choice: choice,
-        //     startOffset: config.animationSpeed + Math.random() * 500 + i * 500,
-        //     height: data.items.length * this.symbolHeight,
-        //     duration: config.animationDuration + i * config.stopDelay, // milliseconds
-        //     isFinished: false,
-        //   };
-
-        //   return opts;
-        // });
-
-        //next(this.animateSpin);
       },
       spiningAnimation(offset = 0) {
         this.opts.forEach((opt) => {
@@ -68,7 +43,7 @@
 
         if (!this.finished) {
           setTimeout(() => {
-            this.spiningAnimation(offset + 70);
+            this.spiningAnimation(offset + Math.random() * this.animationPositionJump);
           }, 5);
         }
       },
