@@ -7,6 +7,7 @@ const config = {
   animationSpeed: 10000, // the higher the number the faster
   stopDelay: 150,
   gameId: 1,
+  betStep: 0.5,
   autoSpinTimeout: 3000,
   theme: 'crypto',
   baseUrl: `https://casino.nomadnt.com`,

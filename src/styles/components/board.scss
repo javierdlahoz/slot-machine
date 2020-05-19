@@ -61,6 +61,11 @@
   }
 }
 
+.slot-title {
+  height: 90px;
+  max-width: $breakpoint-xs;
+}
+
 .reel-container {
 
   &.slot-3 {

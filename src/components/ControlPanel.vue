@@ -12,27 +12,36 @@
     <div class="pure-g p-4">
       <div class="pure-u-1-1 text-right">
         <div class="pure-g">
-          <div class="pure-u-1-2 pure-form input-container">
-            <div class="pure-control-group mr-2">
-              <label class="mr-2">Bet: €</label>
-              <input type="number" min="0.50" step="0.50" v-model="amount" v-bind:disabled="autoSpinning">
-            </div>
+          <div class="pure-u-1-3">
 
-            <div class="pure-control-group ml-2">
-              <label class="mr-2">Auto spin:</label>
-              <input type="number" class="auto-spin-input" min="0" step="1" v-model="autoSpins">
-            </div>
           </div>
 
-          <div class="pure-u-1-2 buttons-container">
-            <div v-bind:disabled="spinning || autoSpinning" class="mb-2 spin-btn" @click="trigger">
+          <div class="pure-u-1-3 pure-form input-container">
+            <div class="pure-control-group mr-2">
+              <label class="mr-2">Bet: €</label>
+              <div class="control-btn control-down" @click="decreaseBet">
+                <img v-bind:src="downButtonBg">
+              </div>
+              <input v-bind:disabled="true" type="number" min="0.50" step="0.50" v-model="amount">
+              <div class="control-btn control-up">
+                <img v-bind:src="upButtonBg" @click="increaseBet">
+              </div>
+            </div>
+
+<!--            <div class="pure-control-group ml-2">-->
+<!--              <label class="mr-2">Auto spin:</label>-->
+<!--              <input type="number" class="auto-spin-input" min="0" step="1" v-model="autoSpins">-->
+<!--            </div>-->
+          </div>
+
+          <div class="pure-u-1-3 buttons-container">
+            <div v-bind:disabled="spinning || autoSpinning" class="spin-btn" @click="trigger">
               <img v-bind:src="spinButtonBg">
             </div>
 
-            <button v-if="autoSpinning" v-bind:disabled="spinning" class="pure-button pure-button-primary ml-2 mb-2" @click="stopAutoSpin">
-              <font-awesome-icon icon="spinner" v-if="spinning" spin class="mr-2"></font-awesome-icon>
-              <span>({{spinCountdown}}) Stop </span>
-            </button>
+            <div v-if="autoSpinning" v-bind:disabled="spinning" class="mb-2 autospin-btn" @click="stopAutoSpin">
+              <img v-bind:src="autoSpinStopButtonBg">
+            </div>
             <div v-else v-bind:disabled="spinning" class="mb-2 autospin-btn" @click="triggerAutoSpin(autoSpins)">
               <img v-bind:src="autoSpinButtonBg">
             </div>
@@ -47,13 +56,13 @@
         </h3>
       </div>
       <div class="pure-u-1-3 text-center">
-        <h3 v-if="meta && meta.bet">
-          Bet: {{ meta.bet | currency }}
+        <h3>
+          Bet: {{ meta && meta.bet ? meta.bet : 0 | currency }}
         </h3>
       </div>
       <div class="pure-u-1-3 text-right">
-        <h3 v-if="meta && meta.win">
-          Win: {{ meta.win | currency }}
+        <h3>
+          Win: {{ meta && meta.win ? meta.win : 0 | currency }}
         </h3>
       </div>
     </div>
@@ -116,16 +125,35 @@
       },
       stopAutoSpin() {
         this.autoSpinning = false;
+      },
+      decreaseBet() {
+        if (this.amount > config.betStep) {
+          this.amount -= config.betStep;
+        }
+      },
+      increaseBet() {
+        if ((this.amount + config.betStep) < this.balance) {
+          this.amount += config.betStep;
+        }
       }
     },
     computed: {
       spinButtonBg() {
         return this.spinning ? require(`../assets/themes/${this.theme}/buttons/spin/animated.gif`)
-            : require(`../assets/themes/${this.theme}/buttons/spin/spin.png`);
+            : require(`../assets/themes/${this.theme}/buttons/spin/default.png`);
       },
       autoSpinButtonBg() {
-        return this.spinning ? require(`../assets/themes/${this.theme}/buttons/spin/animated.gif`)
-            : require(`../assets/themes/${this.theme}/buttons/spin/spin.png`);
+        return this.spinning ? require(`../assets/themes/${this.theme}/buttons/autospin/on.png`)
+            : require(`../assets/themes/${this.theme}/buttons/autospin/default.png`);
+      },
+      autoSpinStopButtonBg() {
+        return require(`../assets/themes/${this.theme}/buttons/autospin/stop.png`);
+      },
+      upButtonBg() {
+        return require(`../assets/themes/${this.theme}/buttons/up.png`);
+      },
+      downButtonBg() {
+        return require(`../assets/themes/${this.theme}/buttons/down.png`);
       }
     }
   }

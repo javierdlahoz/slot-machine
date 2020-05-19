@@ -6,7 +6,11 @@
 
   .buttons-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+
+    @media (max-width: $breakpoint-sm) {
+      justify-content: center;
+    }
   }
 
   .input-container {
@@ -65,7 +69,6 @@
   }
 
   .spin-btn {
-    width: 170px;
     height: 96px;
     background-size: contain;
     background-repeat: no-repeat;
@@ -77,8 +80,7 @@
   }
 
   .autospin-btn {
-    width: 86px;
-    height: 48px;
+    height: 72px;
     background-size: contain;
     background-repeat: no-repeat;
     align-self: flex-end;
@@ -87,6 +89,30 @@
       height: 100%;
       width: auto;
     }
+  }
+
+  .pure-control-group {
+    display: flex;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .control-btn {
+    display: inline-block;
+
+    img {
+      height: 32px;
+    }
+  }
+
+  input {
+    background-color: rgba($black, 0.9) !important;
+    font-weight: bold;
+    max-width: 140px;
+    height: 32px;
+    border: 0 !important;
+    box-shadow: none !important;
+    text-align: center;
   }
 }
 

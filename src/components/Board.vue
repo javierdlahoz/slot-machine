@@ -1,7 +1,8 @@
 <template>
     <div class="slot-machine" v-bind:style="{ 'background-image': 'url(' + bgSrc + ')' }">
         <div class="container board">
-            <h2 class="text-center"> {{ $store.getters.game.name }} </h2>
+            <img v-bind:src="titleBg" v-if="titleBg" class="slot-title">
+            <h2 class="text-center" v-else> {{ $store.getters.game.name }} </h2>
             <div class="pure-g mt-4 mb-4 board-container" v-bind:class="slotStyle"
                  v-bind:style="{'max-height': `${boardHeight}px`}">
                 <div class="reel-container"
@@ -54,6 +55,9 @@
       },
       bgSrc() {
         return require(`../assets/themes/${this.theme}/background/bg.png`);
+      },
+      titleBg() {
+        return require(`../assets/themes/${this.theme}/title.png`);
       }
     },
     methods: {
