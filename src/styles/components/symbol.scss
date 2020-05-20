@@ -34,8 +34,8 @@
   }
 
   &.slot__winning-symbol {
-    background-color: rgba($black, 0.6);
-    border-radius: 5px;
+    //background-color: rgba($black, 0.6);
+    //border-radius: 5px;
   }
 
   .slot__winning-amount {
@@ -43,6 +43,10 @@
     font-size: 26px;
     font-weight: bold;
     animation: glow 1000ms ease-in-out infinite alternate;
+
+    @media (max-width: $breakpoint-xs) {
+      font-size: 16px;
+    }
   }
 }
 

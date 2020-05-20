@@ -23,6 +23,7 @@
             el: slot.querySelector(".slot__wrap"),
             finalPos: 0,
             choice: 0,
+            reel: i,
             startOffset: config.animationSpeed + Math.random() * 500 + i * 500,
             offset: 0,
             height: data.items.length * this.symbolHeight,
@@ -36,6 +37,7 @@
       },
       spiningAnimation(offset = 0) {
         this.opts.forEach((opt) => {
+          offset = offset + Math.random() * opt.reel * 100; // This helps to more dynamic animation between reels
           const pos = -1 * Math.floor((offset + opt.finalPos) % opt.height);
           opt.el.style.transform = "translateY(" + pos + "px)";
           opt.offset = offset;
@@ -43,8 +45,8 @@
 
         if (!this.finished) {
           setTimeout(() => {
-            this.spiningAnimation(offset + this.animationPositionJump);
-          }, 5);
+            this.spiningAnimation(offset + Math.random() * this.animationPositionJump);
+          }, 15);
         }
       },
       stopAnimation() {

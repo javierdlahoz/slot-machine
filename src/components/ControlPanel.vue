@@ -18,7 +18,7 @@
 
           <div class="pure-u-1-3 pure-form input-container">
             <div class="pure-control-group mr-2">
-              <label class="mr-2">Bet: €</label>
+              <label class="mr-2">Bet €</label>
               <div class="control-btn control-down" @click="decreaseBet">
                 <img v-bind:src="downButtonBg">
               </div>
@@ -28,10 +28,16 @@
               </div>
             </div>
 
-<!--            <div class="pure-control-group ml-2">-->
-<!--              <label class="mr-2">Auto spin:</label>-->
-<!--              <input type="number" class="auto-spin-input" min="0" step="1" v-model="autoSpins">-->
-<!--            </div>-->
+            <div class="pure-control-group mr-2">
+              <label class="mr-2">Bet Level</label>
+              <div class="control-btn control-down" @click="betLevel > 1 ? betLevel-- : false">
+                <img v-bind:src="downButtonBg">
+              </div>
+              <input v-bind:disabled="true" type="number" min="1" step="10" v-model="betLevel">
+              <div class="control-btn control-up">
+                <img v-bind:src="upButtonBg" @click="betLevel < 10 ? betLevel++ : false">
+              </div>
+            </div>
           </div>
 
           <div class="pure-u-1-3 buttons-container">
@@ -79,6 +85,7 @@
       return {
         spinning: false,
         amount: 0.50,
+        betLevel: 1,
         meta: null,
         balance: 0,
         autoSpins: 10,

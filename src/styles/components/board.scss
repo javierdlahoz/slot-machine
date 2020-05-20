@@ -64,6 +64,11 @@
 .slot-title {
   height: 90px;
   max-width: $breakpoint-xs;
+
+  @media (max-width: $breakpoint-xs) {
+    width: 90%;
+    height: auto;
+  }
 }
 
 .reel-container {
