@@ -1,5 +1,5 @@
 const config = {
-  symbols: 25,
+  symbols: 12,
   reels: 3,
   rows: 1,
   cols: 3,

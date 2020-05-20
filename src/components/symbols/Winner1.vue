@@ -2,7 +2,7 @@
   <div>
     <div class="slot__symbol-wrapper position-relative slot__winning-symbol"
          v-bind:class="slotStyle">
-      <img v-bind:src="imageSrc" width="100%">
+      <img v-bind:src="imageSrc">
       <div class="slot__winning-amount">{{ winningAmount | currency }}</div>
     </div>
   </div>
