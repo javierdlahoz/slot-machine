@@ -18,8 +18,14 @@
   .input-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
+
+    .bet-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
 
   .balance-panel {

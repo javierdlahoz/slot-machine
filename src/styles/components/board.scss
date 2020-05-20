@@ -42,6 +42,10 @@
       width: 80vw;
       max-width: $max-board-width;
 
+      @media (max-width: $breakpoint-lg) {
+        max-width: $max-board-m-width;
+      }
+
       @media (max-width: $breakpoint-sm) {
         max-height: $max-board-m-height-5 + 20px;
         max-width: 100%;
@@ -64,6 +68,10 @@
 .slot-title {
   height: 90px;
   max-width: $breakpoint-xs;
+
+  @media (max-width: $breakpoint-lg) {
+    height: 60px;
+  }
 
   @media (max-width: $breakpoint-xs) {
     width: 90%;
@@ -92,7 +100,7 @@
   &.slot-5 {
     height: $max-board-height-5 + 20px;
 
-    @media (max-width: $breakpoint-sm) {
+    @media (max-width: $breakpoint-lg) {
       height: $max-board-m-height-5 + 20px;
     }
   }
@@ -132,7 +140,7 @@
   &.slot-5 {
     max-height: $max-board-height-5 + 20;
 
-    @media (max-width: $breakpoint-sm) {
+    @media (max-width: $breakpoint-lg) {
       max-height: $max-board-m-height-5 + 20;
     }
   }
@@ -169,7 +177,7 @@
   &.slot-5 {
     line-height: $slot-height-5;
 
-    @media (max-width: $breakpoint-sm) {
+    @media (max-width: $breakpoint-lg) {
       line-height: $slot-m-height-5;
     }
   }

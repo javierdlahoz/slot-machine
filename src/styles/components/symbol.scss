@@ -28,17 +28,24 @@
   &.slot-5 {
     height: $slot-height-5;
 
-    @media (max-width: $breakpoint-xs) {
+    @media (max-width: $breakpoint-lg) {
       height: $slot-m-height-5;
     }
   }
 
   &.slot__winning-symbol {
-    //background-color: rgba($black, 0.6);
-    //border-radius: 5px;
+    position: relative;
+
+    img {
+      position: absolute;
+      z-index: 1;
+      height: 100%;
+      width: auto;
+    }
   }
 
   .slot__winning-amount {
+    z-index: 10;
     color: $white;
     font-size: 26px;
     font-weight: bold;

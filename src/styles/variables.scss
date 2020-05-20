@@ -4,7 +4,8 @@ $slot-height-5: 120px;
 
 $slot-m-height-3: 150px;
 $slot-m-height-4: 150px;
-$slot-m-height-5: 98px;
+
+$slot-m-height-5: 90px;
 
 $reel-max-width: 145px;
 
@@ -22,7 +23,9 @@ $breakpoint-md: 992px;
 $breakpoint-lg: 1200px;
 
 // BOARD
-$max-board-width: 992px;
+$max-board-width: $breakpoint-md;
+$max-board-m-width: 786px;
+
 $max-board-height-3: (($slot-height-3 + 20px) * 3);
 $max-board-height-4: (($slot-height-4 + 20px) * 4);
 $max-board-height-5: (($slot-height-5 + 20px) * 5);

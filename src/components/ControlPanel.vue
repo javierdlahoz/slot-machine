@@ -17,25 +17,27 @@
           </div>
 
           <div class="pure-u-1-3 pure-form input-container">
-            <div class="pure-control-group mr-2">
-              <label class="mr-2">Bet €</label>
-              <div class="control-btn control-down" @click="decreaseBet">
-                <img v-bind:src="downButtonBg">
+            <div class="bet-controls">
+              <div class="pure-control-group mr-2">
+                <label class="mr-2">Bet €</label>
+                <div class="control-btn control-down" @click="decreaseBet">
+                  <img v-bind:src="downButtonBg">
+                </div>
+                <input v-bind:disabled="true" type="number" min="0.50" step="0.50" v-model="amount">
+                <div class="control-btn control-up">
+                  <img v-bind:src="upButtonBg" @click="increaseBet">
+                </div>
               </div>
-              <input v-bind:disabled="true" type="number" min="0.50" step="0.50" v-model="amount">
-              <div class="control-btn control-up">
-                <img v-bind:src="upButtonBg" @click="increaseBet">
-              </div>
-            </div>
 
-            <div class="pure-control-group mr-2">
-              <label class="mr-2">Bet Level</label>
-              <div class="control-btn control-down" @click="betLevel > 1 ? betLevel-- : false">
-                <img v-bind:src="downButtonBg">
-              </div>
-              <input v-bind:disabled="true" type="number" min="1" step="10" v-model="betLevel">
-              <div class="control-btn control-up">
-                <img v-bind:src="upButtonBg" @click="betLevel < 10 ? betLevel++ : false">
+              <div class="pure-control-group mr-2">
+                <label class="mr-2">Bet Level</label>
+                <div class="control-btn control-down" @click="betLevel > 1 ? betLevel-- : false">
+                  <img v-bind:src="downButtonBg">
+                </div>
+                <input v-bind:disabled="true" type="number" min="1" step="10" v-model="betLevel">
+                <div class="control-btn control-up">
+                  <img v-bind:src="upButtonBg" @click="betLevel < 10 ? betLevel++ : false">
+                </div>
               </div>
             </div>
           </div>
