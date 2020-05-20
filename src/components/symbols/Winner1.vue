@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="slot__symbol-wrapper position-relative"
+    <div class="slot__symbol-wrapper position-relative slot__winning-symbol"
          v-bind:class="slotStyle"
          v-bind:style="{ 'background-image': 'url(' + imageSrc + ')' }">
-      <div class="slot__winning-amount" v-show="showAmount">{{ winningAmount | currency }}</div>
+      <div class="slot__winning-amount">{{ winningAmount | currency }}</div>
     </div>
   </div>
 </template>
@@ -14,7 +14,8 @@
   export default {
     mixins: [StyleMixin],
     props: {
-      symbol: Number
+      symbol: Number,
+      winningAmount: Number
     },
     data() {
       return {
@@ -23,23 +24,9 @@
         showAmount: true
       };
     },
-    mounted() {
-      this.animatedAmount();
-    },
-    methods: {
-      animatedAmount() {
-        setTimeout(() => {
-          this.showAmount = !this.showAmount;
-          this.animatedAmount();
-        }, 600);
-      }
-    },
     computed: {
       imageSrc() {
         return require(`../../assets/themes/${this.theme}/animations/win/${this.symbol}.gif`);
-      },
-      winningAmount() {
-        return this.$store.getters.betResponse.win;
       }
     },
   };

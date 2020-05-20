@@ -43,7 +43,7 @@
 
         if (!this.finished) {
           setTimeout(() => {
-            this.spiningAnimation(offset + Math.random() * this.animationPositionJump);
+            this.spiningAnimation(offset + this.animationPositionJump);
           }, 5);
         }
       },

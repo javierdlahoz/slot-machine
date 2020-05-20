@@ -22,9 +22,9 @@
           .then(({data}) => {
             this.response = data;
             this.choices = data.data.outcome;
-            this.payline = data.data.payouts.payline ? data.data.payouts.payline : [];
             this.$store.dispatch('setBetResponse', data.data);
             this.$store.dispatch('setBalance', data.data.balance);
+            this.$store.dispatch('setPayouts', data.data.payouts);
             callback(data);
           })
           .catch((data) => {
@@ -47,7 +47,7 @@
     },
     computed: {
       spinEndpoint() {
-        return `${config.baseUrl}/games/${config.gameId}/spin`;
+        return `${config.baseUrl}/wager`;
       },
       config() {
         return {

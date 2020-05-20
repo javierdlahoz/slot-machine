@@ -22,6 +22,7 @@
   import AnimationMixin from "../mixins/AnimationMixin";
   import StyleMixin from "../mixins/StyleMixin";
   import config from "../services/config";
+  import Utils from "../services/utils";
 
   export default {
     mixins: [BackendServices, AnimationMixin, StyleMixin],
@@ -71,24 +72,12 @@
       winnerSymbol(index) {
         return isNaN(this.payline[index]) ? null : this.payline[index];
       },
-      chunckReels(outcome) {
-        let reels = [];
-
-        for (let i = 0; i < this.reelAmount; i++) {
-          let indexes = [];
-          for (let j = 0; j < this.rows; j++) {
-            indexes.push((j * this.reelAmount) + i);
-          }
-          reels[i] = outcome.filter((symbol, index) => indexes.includes(index)).reverse()
-        }
-        return reels;
-      },
       spin($event) {
         this.startAnimation();
         this.$store.dispatch('bet', $event.amount);
 
         this.retrieveSpinData($event, (data) => {
-          const outcomeReels = this.chunckReels(data.data.outcome);
+          const outcomeReels = Utils.chunkForReels(data.data.outcome, this.reelAmount, this.rows);
           this.reels.forEach((reel, index) => {
             reel.items = reel.items.slice(outcomeReels[index].length - 1, reel.items.length - 1);
             reel.items = outcomeReels[index].concat(reel.items);

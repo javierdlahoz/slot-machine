@@ -3,6 +3,7 @@
 .control-panel {
   width: 100vw;
   background-color: rgba($black, 0.6);
+  text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px rgba($text-glow-color, 0.3), 0 0 4px rgba($text-glow-color, 0.3), 0 0 5px rgba($text-glow-color, 0.3), 0 0 6px rgba($text-glow-color, 0.3), 0 0 7px rgba($text-glow-color, 0.3);
 
   .buttons-container {
     display: flex;

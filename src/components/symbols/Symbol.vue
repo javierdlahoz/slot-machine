@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-if="winnerSymbol && !spinning">
-            <component :is="winnerComponent" :symbol="symbol"></component>
+            <component :is="winnerComponent" :symbol="symbol" :winning-amount="winnerAmount"></component>
         </template>
         <div class="slot__symbol-wrapper position-relative"
              v-else
@@ -15,7 +15,6 @@
   import config from '../../services/config';
   import EventBus from '../../services/EventBus';
   import StyleMixin from '../../mixins/StyleMixin';
-  import Utils from '../../services/utils';
 
   export default {
     mixins: [StyleMixin],
@@ -23,45 +22,41 @@
       symbol: Number,
       reelIndex: Number,
       symbolIndex: Number,
-      row: Number,
+      row: Number
     },
     data() {
       return {
         spinning: false,
-        theme: config.theme
+        theme: config.theme,
+        winnerSymbol: 0,
+        winnerAmount: null
       };
     },
     created() {
       EventBus.$on('spinning', (spinning) => {
         this.spinning = spinning;
+        if (!spinning) {
+          this.setWinnerSymbol();
+        }
       });
+    },
+    methods: {
+      setWinnerSymbol() {
+        this.winnerSymbol = 0;
+        const payouts = this.$store.getters.payouts;
+        if (payouts && payouts.length === 0) return null;
+
+        payouts.forEach((payout) => {
+          if (payout.formattedMask[this.reelIndex][this.symbolIndex]) {
+            this.winnerSymbol = payout.formattedMask[this.reelIndex][this.symbolIndex];
+            this.winnerAmount = payout.win;
+          }
+        });
+      }
     },
     computed: {
       imageSrc() {
         return require(`../../assets/themes/${this.theme}/symbols/${this.symbol}.png`);
-      },
-      winnerSymbol() {
-        if (!this.$store.getters.betResponse) return null;
-        const payouts = this.$store.getters.betResponse.payouts;
-        let winnerSymbol = 0;
-
-        payouts.forEach((payout) => {
-          // TODO: need to integrate with win value
-          // const win = payout.win;
-
-          if (payout.mask) {
-            const masks = Utils.chunk(
-                payout.mask,
-                this.$store.getters.game.options.cols
-            );
-            if (masks[this.row] && masks[this.row][this.reelIndex]) {
-              winnerSymbol = masks[this.row][this.reelIndex];
-              return;
-            }
-          }
-        });
-
-        return winnerSymbol;
       },
       winnerComponent() {
         return `winner-${this.winnerSymbol}`;

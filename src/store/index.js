@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Utils from '../services/utils';
 
 Vue.use(Vuex)
 
@@ -9,7 +10,8 @@ export default new Vuex.Store({
     bearerToken: null,
     betResponse: null,
     game: null,
-    balance: null
+    balance: null,
+    payouts: null
   },
   mutations: {
     SET_OPERATOR_TOKEN(state, token) {
@@ -29,6 +31,14 @@ export default new Vuex.Store({
     },
     BET(state, bet) {
       state.balance -= bet;
+    },
+    SET_PAYOUTS(state, payouts) {
+      if (payouts) {
+        payouts.forEach((payout) => {
+          payout.formattedMask = Utils.chunkForReels(payout.mask, state.game.options.cols, state.game.options.rows);
+        });
+      }
+      state.payouts = payouts;
     }
   },
   actions: {
@@ -49,6 +59,9 @@ export default new Vuex.Store({
     },
     bet: ({ commit }, bet) => {
       commit('BET', bet);
+    },
+    setPayouts: ({ commit }, payouts) => {
+      commit('SET_PAYOUTS', payouts);
     }
   },
   modules: {},
@@ -67,6 +80,9 @@ export default new Vuex.Store({
     },
     balance: state => {
       return state.balance;
+    },
+    payouts: state => {
+      return state.payouts;
     }
   }
 })
